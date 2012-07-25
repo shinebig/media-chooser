@@ -52,16 +52,6 @@ window.Chute = (function() {
 
 })();
 
-function chutelog(what) {
-   try {
-     console.log(what);
-   }
-   catch (e) {}
-   finally {
-     return;
-   }
-}
-
 /*
  * jQuery SlideChute Plugin 1.0.0
  * www.slidechute.com
@@ -77,7 +67,7 @@ function chuteGetScript(url, success) {
   var script    = document.createElement('script');
   script.src    = url;
   var head      = document.getElementsByTagName('head')[0],
-  done          = false;
+  	  done          = false;
   script.onload = script.onreadystatechange = function() {
     if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
       done = true;
@@ -101,7 +91,7 @@ var chute = function(element, data){
 
   var _readyCallback = function(){
     if (typeof(jQuery) == 'undefined'){
-      chuteGetScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', function(){
+      chuteGetScript('//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function(){
         setTimeout(function(){
           _loader(element, data);
         }, 10);
@@ -231,46 +221,46 @@ var _chuteFunctions = function(){
       // pull in options specified by html5 tags
       var _htmlOptions  = {
         app                     : this.$element.attr('data-app-id'),
-
-        identifier              : this.$element.attr('data-identifier') == undefined || this.$element.attr('data-identifier') == '' ? null : this.$element.attr('data-identifier'),
-        disable_auto_identifier : this.$element.attr('data-disable-auto-identifier') == undefined ? this.defaults.disable_auto_identifier : true,
-        id                      : this.$element.attr('data-id') == undefined ? null : this.$element.attr('data-id'),
-        bundle_id               : this.$element.attr('data-bundle-id') == undefined ? '' : this.$element.attr('data-bundle-id'),
+		
+		identifier				: this.$element.attr('data-identifier') || null,
+        disable_auto_identifier : !!this.$element.attr('data-disable-auto-identifier') || this.defaults.disable_auto_identifier,
+        id                      : this.$element.attr('data-id') || null,
+        bundle_id               : this.$element.attr('data-bundle-id') || '',
 
         assets                  : this.$element.attr('data-assets') == undefined ? this.defaults.assets : this.$element.attr('data-assets').split(','),
 
         name                    : this.$element.attr('data-name'),
-        url                     : this.$element.attr('data-url') == undefined ? document.location.href : this.$element.attr('data-url'),
+        url                     : this.$element.attr('data-url') || document.location.href,
         tags                    : this.$element.attr('data-tags'),
-        css                     : this.$element.attr('data-css') == undefined ? '' : this.$element.attr('data-css'),
-        screens                 : this.$element.attr('data-screens') == undefined ? '' : this.$element.attr('data-screens'),
+        css                     : this.$element.attr('data-css') || '',
+        screens                 : this.$element.attr('data-screens') || '',
 
-        display_template_name   : this.$element.attr('data-display-template-name') == undefined ? this.defaults.display_template_name : this.$element.attr('data-display-template-name'),
-        display_template        : this.$element.attr('data-display-template') == undefined ? this.defaults.display_template : this.$element.attr('data-display-template'),
+        display_template_name   : this.$element.attr('data-display-template-name') || this.defaults.display_template_name,
+        display_template        : this.$element.attr('data-display-template') || this.defaults.display_template,
 
-        collector_template_name : this.$element.attr('data-collector-template-name') == undefined ? this.defaults.collector_template_name : this.$element.attr('data-collector-template-name'),
-        collector_template      : this.$element.attr('data-collector-template') == undefined ? this.defaults.collector_template : this.$element.attr('data-collector-template'),
+        collector_template_name : this.$element.attr('data-collector-template-name') || this.defaults.collector_template_name,
+        collector_template      : this.$element.attr('data-collector-template') || this.defaults.collector_template,
 
-        collector_width         : this.$element.attr('data-collector-width') == undefined ? this.defaults.collector_width : this.$element.attr('data-collector-width'),
-        collector_height        : this.$element.attr('data-collector-height') == undefined ? this.defaults.collector_height : this.$element.attr('data-collector-height'),
+        collector_width         : this.$element.attr('data-collector-width') || this.defaults.collector_width,
+        collector_height        : this.$element.attr('data-collector-height') || this.defaults.collector_height,
 
         template_options        : this.$element.attr('data-template-options') == undefined ? this.defaults.template_options : $.parseJSON(this.$element.attr('data-template-options')),
 
-        captions                : this.$element.attr('data-captions') == undefined ? 'hide' : this.$element.attr('data-captions'),
-        exclusions              : this.$element.attr('data-services-exclude') == undefined ? this.defaults.exclusions : this.$element.attr('data-services-exclude'),
-        inclusions              : this.$element.attr('data-services-include') == undefined ? '' : this.$element.attr('data-services-include'),
-        dialogTitle             : this.$element.attr('data-chooser-button-text') == undefined ? 'Choose Photos' : this.$element.attr('data-chooser-button-text'),
-        mode                    : this.$element.attr('data-mode') == undefined ? 'thumbnails' : this.$element.attr('data-mode'),
+        captions                : this.$element.attr('data-captions') || 'hide',
+        exclusions              : this.$element.attr('data-services-exclude') || this.defaults.exclusions,
+        inclusions              : this.$element.attr('data-services-include') || '',
+        dialogTitle             : this.$element.attr('data-chooser-button-text') || 'Choose Photos',
+        mode                    : this.$element.attr('data-mode') || 'thumbnails',
 
-        uploadServer            : this.$element.attr('data-uploadServer') == undefined ? this.defaults.uploadServer : this.$element.attr('data-uploadServer'),
-        apiServer               : this.$element.attr('data-apiServer') == undefined ? this.defaults.apiServer : this.$element.attr('data-apiServer'),
-        cdnRoot                 : this.$element.attr('data-cdnRoot') == undefined ? this.defaults.cdnRoot : this.$element.attr('data-cdnRoot'),
+        uploadServer            : this.$element.attr('data-uploadServer') || this.defaults.uploadServer,
+        apiServer               : this.$element.attr('data-apiServer') || this.defaults.apiServer,
+        cdnRoot                 : this.$element.attr('data-cdnRoot') || this.defaults.cdnRoot,
 
-        file_types              : this.$element.attr('data-file-types') == undefined ? this.defaults.file_types : this.$element.attr('data-file-types'),
-        file_limit              : this.$element.attr('data-file-limit') == undefined ? this.defaults.file_limit : this.$element.attr('data-file-limit'),
+        file_types              : this.$element.attr('data-file-types') || this.defaults.file_types,
+        file_limit              : this.$element.attr('data-file-limit') || this.defaults.file_limit,
 
-        share_text              : this.$element.attr('data-share-text') == undefined ? '' : this.$element.attr('data-share-text'),
-        awesm_key               : this.$element.attr('data-awesm-key') == undefined ? '' : this.$element.attr('data-awesm-key'),
+        share_text              : this.$element.attr('data-share-text') || '',
+        awesm_key               : this.$element.attr('data-awesm-key') || '',
 
         popup                   : this.$element.attr('data-popup') == 'popup'
       }
@@ -281,8 +271,7 @@ var _chuteFunctions = function(){
       this.options.is_display = !(this.options.mode == 'collector' || this.options.mode == 'chooser');
 
       if (this.options.identifier == null && !this.options.disable_auto_identifier){
-        this.options.identifier = document.location.href;
-        this.options.id         = document.location.href;
+        this.options.identifier = this.options.id =  document.location.href;
       }
 
       // use popup window when in an iframe hosted by us, or on a mobile
@@ -294,9 +283,7 @@ var _chuteFunctions = function(){
 
       var me = this;
 
-      me.$element.addClass('chute-base-widget').css('position', 'relative');
-      me.$element.data('options', this.options);
-      me.$element.data('instanceReference', this);
+      me.$element.addClass('chute-base-widget').css('position', 'relative').data('options', this.options).data('instanceReference', this).data('instanceReference', this);
 
       if (me.options.is_display){
         if (this.options.display_template == null && this.options.display_template_name != null){
@@ -416,15 +403,15 @@ var _chuteFunctions = function(){
     },
 
     hasNextPage: function(){
-      return (this.options.nextPageUrl !=  undefined);
+      return !!this.options.nextPageUrl;
     },
 
     hasPreviousPage: function(){
-      return (this.options.previousPageUrl !=  undefined);
+      return !!this.options.previousPageUrl;
     },
 
     hasNewPage: function(){
-      return (this.options.nextImagesUrl !=  undefined);
+      return !!this.options.nextImagesUrl;
     },
 
     renderNextPage: function(){
@@ -455,13 +442,13 @@ var _chuteFunctions = function(){
       if (typeof(url) == 'string') {
         if (url.indexOf('http') != 0)
           url = document.location.protocol + url;
-        $('head').append( '<link rel="stylesheet" type="text/css" href="' + url + '" />' );
+        $('head').append( '<link rel="stylesheet" href="' + url + '" />' );
       }
       else {
         $.each(url, function(i, _url){
           if (_url.indexOf('http') != 0)
             _url = document.location.protocol + _url;
-          $('head').append( '<link rel="stylesheet" type="text/css" href="' + _url + '" />' );
+          $('head').append( '<link rel="stylesheet" href="' + _url + '" />' );
         });
       }
     },
@@ -512,15 +499,15 @@ var _chuteFunctions = function(){
 
       // Collection
       if (this.options.collection != null) {
-        path = this.paths.collection.replace(':id',this.options.collection);
+        path = this.paths.collection.replace(':id', this.options.collection);
 
       // Gallery
       } else if (this.options.gallery != null) {
-        path = this.paths.gallery.replace(':id',this.options.gallery);
+        path = this.paths.gallery.replace(':id', this.options.gallery);
 
       // Asset
       } else if (this.options.assets != null) {
-        path = this.paths.asset.replace(':id',this.options.asset);
+        path = this.paths.asset.replace(':id', this.options.asset);
       }
 
       // If we have found a data call to make, complete it
@@ -866,9 +853,7 @@ var _chuteFunctions = function(){
         _html = _templateContainer.replace("{{yield}}", _html);
       }
 
-      var appendContent = false;
-      if (this.options.display_template.systemOptions && this.options.display_template.systemOptions.appendContent)
-        appendContent = true;
+      var appendContent = this.options.display_template.systemOptions && this.options.display_template.systemOptions.appendContent;
 
       if (loadState > -1){
         if (_templateContainer){
@@ -967,13 +952,15 @@ var _chuteFunctions = function(){
 
   if ($.browser.msie && parseInt($.browser.version) <= 7){
     var last_hash = document.location.hash;
-    setInterval(function(){
-      var hash = document.location.hash;
-      if (hash !== last_hash) {
-        last_hash = hash;
-        receiveData(decodeURIComponent(hash).replace(/^#/, ''));
-      }
-    }, 1000 );
+	var ping = function(){
+		var hash = document.location.hash;
+	    if (hash !== last_hash) {
+			last_hash = hash;
+			receiveData(decodeURIComponent(hash).replace(/^#/, ''));
+		}
+		setTimeout(ping, 1000);
+	};
+	ping();
   } else {
     if (document.addEventListener){
       window.addEventListener('message', receiveMessage, false);
@@ -1579,16 +1566,15 @@ chute('.chute-widget:not(.chute-loaded)');
 
             // Set new dimensions to both css and img's attributes
             $img.css({
-                "width": newWidth,
-                "height": newHeight
+                width: newWidth,
+                height: newHeight
             }).attr({
-                "width": newWidth,
-                "height": newHeight
+                width: newWidth,
+                height: newHeight
             });
 
             if (opts.center) { // set offset if center is true
-                $img.css("margin-left", Math.floor((destW - newWidth) / 2));
-                $img.css("margin-top", Math.floor((destH - newHeight) / 2));
+                $img.css("margin-left", Math.floor((destW - newWidth) / 2)).css("margin-top", Math.floor((destH - newHeight) / 2));
             }
 
             if (opts.fade > 0) { // fade-in effect
@@ -1700,27 +1686,27 @@ jQuery Reveal
         lockModal();
 
         if(options.animation == "fadeAndPop") {
-          modal.css({'top': 0, 'opacity' : 0, 'visibility' : 'visible'});
+          modal.css({ top: 0, opacity : 0, visibility : 'visible'});
           modalBG.fadeIn(options.animationspeed/2);
           setTimeout(function(){
             modal.animate({
-              "top": "100px",
-              "opacity" : 1
+              top: "100px",
+              opacity : 1
             }, options.animationspeed,unlockModal());
           }, options.animationspeed/2);
         }
         if(options.animation == "fade") {
-          modal.css({'opacity' : 0, 'visibility' : 'visible', 'top': $(document).scrollTop()+topMeasure});
+          modal.css({ opacity : 0, visibility : visible, top: $(document).scrollTop()+topMeasure});
           modalBG.fadeIn(options.animationspeed/2);
           setTimeout(function(){
             modal.animate({
-              "opacity" : 1
+              opacity : 1
             }, options.animationspeed,unlockModal());
           }, options.animationspeed/2);
         }
         if(options.animation == "none") {
-          modal.css({'visibility' : 'visible', 'top':$(document).scrollTop()+topMeasure});
-          modalBG.css({"display":"block"});
+          modal.css({ visibility : 'visible', top :$(document).scrollTop()+topMeasure});
+          modalBG.css('display', 'block');
           unlockModal()
         }
       }
@@ -1736,10 +1722,10 @@ jQuery Reveal
             modalBG.fadeOut(options.animationspeed);
           }, options.animationspeed);
           modal.animate({
-            "top":  $(document).scrollTop()-topOffset + 'px',
-            "opacity" : 0
+            top:  $(document).scrollTop()-topOffset + 'px',
+            opacity : 0
           }, options.animationspeed/2, function() {
-            modal.css({'top':topMeasure, 'opacity' : 1, 'visibility' : 'hidden'});
+            modal.css({ top: topMeasure, opacity : 1, visibility : 'hidden'});
             unlockModal();
           });
         }
@@ -1748,15 +1734,15 @@ jQuery Reveal
             modalBG.fadeOut(options.animationspeed);
           }, options.animationspeed);
           modal.animate({
-            "opacity" : 0
+            opacity : 0
           }, options.animationspeed, function() {
-            modal.css({'opacity' : 1, 'visibility' : 'hidden', 'top' : topMeasure});
+            modal.css({ opacity : 1, visibility : 'hidden', top : topMeasure});
             unlockModal();
           });
         }
         if(options.animation == "none") {
-          modal.css({'visibility' : 'hidden', 'top' : topMeasure});
-          modalBG.css({'display' : 'none'});
+          modal.css({ visibility : 'hidden', top : topMeasure});
+          modalBG.css('display', 'none');
         }
       }
       modal.unbind('reveal:close');
@@ -1774,7 +1760,7 @@ jQuery Reveal
     });
 
     if(options.closeonbackgroundclick) {
-      modalBG.css({"cursor":"pointer"})
+      modalBG.css('cursor', 'pointer');
       modalBG.bind('click.modalEvent', function () {
         modal.trigger('reveal:close')
       });
@@ -1972,18 +1958,18 @@ var $chute;
     var ChuteUploader    = null;
 
     options.app_id       = me.attr('data-app-id');
-    options.id           = me.attr('data-id') == undefined ? '' : me.attr('data-id');
-    options.bundle_id    = me.attr('data-bundle-id') == undefined ? '' : me.attr('data-bundle-id');
+    options.id           = me.attr('data-id') || '';
+    options.bundle_id    = me.attr('data-bundle-id') || '';
     options.name         = me.attr('data-name');
-    options.url          = me.attr('data-url') == undefined ? document.location.href : me.attr('data-url');
+    options.url          = me.attr('data-url') || document.location.href;
     options.tags         = me.attr('data-tags');
-    options.css          = me.attr('data-css') == undefined ? '' : me.attr('data-css');
-    options.screens      = me.attr('data-screens') == undefined ? '' : me.attr('data-screens');
-    options.template     = me.attr('data-template') == undefined ? null : me.attr('data-template');
-    options.captions     = me.attr('data-captions') == undefined ? 'hide' : me.attr('data-captions');
-    options.exclusions   = me.attr('data-services-exclude') == undefined ? '' : me.attr('data-services-exclude');
-    options.inclusions   = me.attr('data-services-include') == undefined ? '' : me.attr('data-services-include');
-    options.dialogTitle  = me.attr('data-chooser-button-text') == undefined ? 'Choose Photos' : me.attr('data-chooser-button-text');
+    options.css          = me.attr('data-css') || '';
+    options.screens      = me.attr('data-screens') || '';
+    options.template     = me.attr('data-template') || null;
+    options.captions     = me.attr('data-captions') || 'hide';
+    options.exclusions   = me.attr('data-services-exclude') || '';
+    options.inclusions   = me.attr('data-services-include') || '';
+    options.dialogTitle  = me.attr('data-chooser-button-text') || 'Choose Photos';
 
     me.options           = options;
     me.data('data', options);
