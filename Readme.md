@@ -14,7 +14,7 @@ Configure it:
 
 ```javascript
 Chute.setApp('your application id');
-Chute.setIdentifier('your chute identifier');
+Chute.setChuteIdentifier('your chute identifier');
 ```
 
 And when you need to collect pictures:
@@ -73,6 +73,46 @@ Assuming we're using our last snippet code for choosing pictures, **data** varia
 }
 ```
 
+# Usage
+
+## Limits
+
+```javascript
+Chute.choose({
+	allow: 'videos' // allow selecting only videos, can be 'all', 'videos', 'images'
+}, function(data){
+	
+});
+
+Chute.choose({
+	allow: 'all',
+	limit: 5 // allow 5 assets max.
+}, function(data){
+	
+});
+```
+
+## Processing
+
+```javascript
+Chute.choose(function(data){
+	// get first image's URL
+	var url = data.assets[0].url;
+	
+	// resize to 500x300
+	url.fill(500, 300);
+	
+	// should fit into 400x325
+	url.fit(400, 325);
+	
+	// width should be 300
+	url.width(300);
+	
+	// height should be 125
+	url.height(125);
+});
+```
+
 # License
 
-MIT.
+&copy; Chute Corporation.
