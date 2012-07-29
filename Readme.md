@@ -13,14 +13,14 @@ Include **chute.min.js** into your page (*requires jQuery*):
 Configure it:
 
 ```javascript
-Chute.setApp('your application id');
-Chute.setChuteIdentifier('your chute identifier');
+Chute.MediaChooser.setApp('your application id');
+Chute.MediaChooser.setChuteIdentifier('your chute identifier');
 ```
 
 And when you need to collect pictures:
 
 ```javascript
-Chute.choose(function(data){
+Chute.MediaChooser.choose(function(data){
 	alert(data.assets[0].url); // alerting URL of first picked picture
 });
 ```
@@ -78,13 +78,13 @@ Assuming we're using our last snippet code for choosing pictures, **data** varia
 ## Limits
 
 ```javascript
-Chute.choose({
+Chute.MediaChooser.choose({
 	allow: 'videos' // allow selecting only videos, can be 'all', 'videos', 'images'
 }, function(data){
 	
 });
 
-Chute.choose({
+Chute.MediaChooser.choose({
 	allow: 'all',
 	limit: 5 // allow 5 assets max.
 }, function(data){
@@ -95,7 +95,7 @@ Chute.choose({
 ## Processing
 
 ```javascript
-Chute.choose(function(data){
+Chute.MediaChooser.choose(function(data){
 	// get first image's URL
 	var url = data.assets[0].url;
 	

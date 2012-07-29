@@ -7,14 +7,15 @@
 	<script src="../dist/chute.js"></script>
 	<script>
 	$(function(){
-		Chute.setApp('4f69f42432fc7257d3000001');
-		Chute.setChuteIdentifier(285406);
-		Chute.choose(function(data){
+		Chute.MediaChooser.setApp('4f69f42432fc7257d3000001');
+		Chute.MediaChooser.setChuteIdentifier(285406);
+		Chute.MediaChooser.setup('#widget', function(data){
 			alert(data.assets[0].url);
 		});
 	});
 	</script>
 </head>
 <body>
+	<div id="widget"></div>
 </body>
 </html>

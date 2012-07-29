@@ -36,27 +36,38 @@ String.prototype.height = function(height) {
   }
 };
 
-window.Chute = (function() {
+if (!window.Chute) {
+  window.Chute = (function() {
 
-  function Chute() {}
+    function Chute() {}
 
-  Chute.setApp = function(app) {
+    return Chute;
+
+  })();
+}
+
+window.Chute.MediaChooser = (function() {
+
+  function MediaChooser() {}
+
+  MediaChooser.setApp = function(app) {
     this.app = app;
   };
 
-  Chute.setChuteIdentifier = function(identifier) {
+  MediaChooser.setChuteIdentifier = function(identifier) {
     this.identifier = identifier;
   };
 
-  Chute.choose = function(params, callback) {
+  MediaChooser.setup = function(params, callback) {
     var browseButton, id, widget;
-    if ('function' === typeof params) {
-      callback = params;
-      params = {};
+    if (typeof params === 'string') {
+      params = {
+        selector: params
+      };
     }
     params.app = this.app;
-    params.identifier = "chute-identifier-" + this.identifier;
-    params.chute_id = this.identifier;
+    params.chute_id = params.identifier || this.identifier;
+    params.identifier = "chute-identifier-" + params.chute_id;
     if (!(params.mode != null)) {
       params.mode = 'collector';
     }
@@ -84,21 +95,34 @@ window.Chute = (function() {
         return callback(data);
       }
     };
-    id = parseInt(Math.random() * 1000);
-    widget = $("<div id=\"chute-" + id + "\"></div>");
-    widget.appendTo('body');
-    params.widget_id = id;
-    chute("#chute-" + id, params);
-    browseButton = widget.find('a.chute-browseButton');
-    if (params.popup === false && params.mode === 'collector') {
-      browseButton.hide();
+    if (!params.selector) {
+      id = parseInt(Math.random() * 1000);
+      widget = jQuery("<div id=\"chute-" + id + "\"></div>");
+      widget.appendTo('body');
+      params.widget_id = id;
+      chute("#chute-" + id, params);
+      browseButton = widget.find("a.chute-browseButton");
+      if (params.popup === false && params.mode === 'collector') {
+        browseButton.hide();
+      }
+      return browseButton;
     }
+    return chute(params.selector, params);
+  };
+
+  MediaChooser.choose = function(params, callback) {
+    var browseButton;
+    if ('function' === typeof params) {
+      callback = params;
+      params = {};
+    }
+    browseButton = this.setup(params, callback);
     return setTimeout(function() {
       return browseButton.click();
     }, 500);
   };
 
-  return Chute;
+  return MediaChooser;
 
 })();
 
