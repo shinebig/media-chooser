@@ -21,8 +21,8 @@ class window.Chute.MediaChooser
 			params = selector: params
 		
 		params.app = @app
-		params.chute_id = params.identifier or @identifier
-		params.identifier = "chute-identifier-#{ params.chute_id }"
+		#params.chute_id = params.identifier or @identifier
+		#params.identifier = "chute-identifier-#{ params.chute_id }"
 		params.mode = 'collector' if not params.mode?
 		params.popup = no if not params.popup?
 		params.file_types = switch params.allow

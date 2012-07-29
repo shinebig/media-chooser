@@ -7,9 +7,10 @@
 	<script src="../dist/chute.js"></script>
 	<script>
 	$(function(){
-		Chute.MediaChooser.setApp('4f69f42432fc7257d3000001');
-		Chute.MediaChooser.setChuteIdentifier(285406);
-		Chute.MediaChooser.setup({
+		var mediaChooser = Chute.MediaChooser;
+		mediaChooser.setApp('4f69f42432fc7257d3000001');
+		//mediaChooser.setChuteIdentifier(285406);
+		mediaChooser.setup({
 			selector: '#widget',
 			allow: 'videos'
 		}, function(urls, data){

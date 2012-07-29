@@ -66,8 +66,6 @@ window.Chute.MediaChooser = (function() {
       };
     }
     params.app = this.app;
-    params.chute_id = params.identifier || this.identifier;
-    params.identifier = "chute-identifier-" + params.chute_id;
     if (!(params.mode != null)) {
       params.mode = 'collector';
     }
