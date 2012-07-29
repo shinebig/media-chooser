@@ -32,7 +32,10 @@ class window.Chute.MediaChooser
 		
 		params.file_limit = params.limit or 0
 		params.picker_version = "v2"
-		params.onSelectionComplete = (element, data) -> callback data if callback
+		params.onSelectionComplete = (element, data) ->
+			urls = []
+			urls.push(asset.url) for asset in data.assets
+			callback urls, data if callback
 		
 		if not params.selector
 			id = parseInt Math.random() * 1000

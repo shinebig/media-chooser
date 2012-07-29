@@ -87,8 +87,15 @@ window.Chute.MediaChooser = (function() {
     params.file_limit = params.limit || 0;
     params.picker_version = "v2";
     params.onSelectionComplete = function(element, data) {
+      var asset, urls, _i, _len, _ref;
+      urls = [];
+      _ref = data.assets;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        asset = _ref[_i];
+        urls.push(asset.url);
+      }
       if (callback) {
-        return callback(data);
+        return callback(urls, data);
       }
     };
     if (!params.selector) {

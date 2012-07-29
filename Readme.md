@@ -20,8 +20,8 @@ Chute.MediaChooser.setChuteIdentifier('your chute identifier');
 And when you need to collect pictures:
 
 ```javascript
-Chute.MediaChooser.choose(function(data){
-	alert(data.assets[0].url); // alerting URL of first picked picture
+Chute.MediaChooser.choose(function(urls, data){
+	alert(urls[0]); // alerting URL of first picked picture
 });
 ```
 
@@ -75,19 +75,30 @@ Assuming we're using our last snippet code for choosing pictures, **data** varia
 
 # Usage
 
+## Placing widget
+
+```
+Chute.MediaChooser.setup({
+	selector: '#place-for-widget', // div for a widget
+	allow: 'videos'
+}, function(urls, data){
+	
+});
+```
+
 ## Limits
 
 ```javascript
 Chute.MediaChooser.choose({
 	allow: 'videos' // allow selecting only videos, can be 'all', 'videos', 'images'
-}, function(data){
+}, function(urls, data){
 	
 });
 
 Chute.MediaChooser.choose({
 	allow: 'all',
 	limit: 5 // allow 5 assets max.
-}, function(data){
+}, function(urls, data){
 	
 });
 ```
@@ -95,9 +106,9 @@ Chute.MediaChooser.choose({
 ## Processing
 
 ```javascript
-Chute.MediaChooser.choose(function(data){
+Chute.MediaChooser.choose(function(urls, data){
 	// get first image's URL
-	var url = data.assets[0].url;
+	var url = urls[0];
 	
 	// resize to 500x300
 	url.fill(500, 300);

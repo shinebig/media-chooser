@@ -9,8 +9,11 @@
 	$(function(){
 		Chute.MediaChooser.setApp('4f69f42432fc7257d3000001');
 		Chute.MediaChooser.setChuteIdentifier(285406);
-		Chute.MediaChooser.setup('#widget', function(data){
-			alert(data.assets[0].url);
+		Chute.MediaChooser.setup({
+			selector: '#widget',
+			allow: 'videos'
+		}, function(urls, data){
+			alert(urls[0]);
 		});
 	});
 	</script>
