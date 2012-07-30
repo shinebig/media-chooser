@@ -25,7 +25,7 @@ class window.Chute.MediaChooser
 		params.identifier = "chute-identifier-#{ params.chute_id }"
 		params.mode = 'collector' if not params.mode?
 		params.popup = no if not params.popup?
-		params.file_types = switch params.allow
+		params.file_types = switch params.mediaTypes
 			when 'images', 'image', 'picture', 'pictures' then 1
 			when 'video', 'videos' then 2
 			else 0

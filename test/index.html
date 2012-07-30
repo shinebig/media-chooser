@@ -7,10 +7,9 @@
 	<script src="../dist/chute.js"></script>
 	<script>
 	$(function(){
-		var mediaChooser = Chute.MediaChooser;
 		Chute.setApp('4f69f42432fc7257d3000001');
-		mediaChooser.choose({
-			allow: 'videos',
+		Chute.MediaChooser.choose({
+			mediaTypes: 'videos',
 			identifier: 285406
 		}, function(urls, data){
 			alert(urls[0]);

@@ -54,7 +54,7 @@ window.Chute.MediaChooser = (function() {
       params.popup = false;
     }
     params.file_types = (function() {
-      switch (params.allow) {
+      switch (params.mediaTypes) {
         case 'images':
         case 'image':
         case 'picture':
