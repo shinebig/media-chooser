@@ -34,19 +34,14 @@ window.Chute.MediaChooser = (function() {
 
   function MediaChooser() {}
 
-  MediaChooser.setChuteIdentifier = function(identifier) {
-    this.identifier = identifier;
-  };
-
-  MediaChooser.setup = function(params, callback) {
+  MediaChooser.choose = function(params, callback) {
     var browseButton, id, widget;
-    if (typeof params === 'string') {
-      params = {
-        selector: params
-      };
+    if ('function' === typeof params) {
+      callback = params;
+      params = {};
     }
     params.app = Chute.app;
-    params.chute_id = params.identifier || this.identifier;
+    params.chute_id = params.identifier;
     params.identifier = "chute-identifier-" + params.chute_id;
     if (!(params.mode != null)) {
       params.mode = 'collector';
@@ -82,28 +77,15 @@ window.Chute.MediaChooser = (function() {
         return callback(urls, data);
       }
     };
-    if (!params.selector) {
-      id = parseInt(Math.random() * 1000);
-      widget = jQuery("<div id=\"chute-" + id + "\"></div>");
-      widget.appendTo('body');
-      params.widget_id = id;
-      chute("#chute-" + id, params);
-      browseButton = widget.find("a.chute-browseButton");
-      if (params.popup === false && params.mode === 'collector') {
-        browseButton.hide();
-      }
-      return browseButton;
+    id = parseInt(Math.random() * 1000);
+    widget = jQuery("<div id=\"chute-" + id + "\"></div>");
+    widget.appendTo('body');
+    params.widget_id = id;
+    chute("#chute-" + id, params);
+    browseButton = widget.find("a.chute-browseButton");
+    if (params.popup === false && params.mode === 'collector') {
+      browseButton.hide();
     }
-    return chute(params.selector, params);
-  };
-
-  MediaChooser.choose = function(params, callback) {
-    var browseButton;
-    if ('function' === typeof params) {
-      callback = params;
-      params = {};
-    }
-    browseButton = this.setup(params, callback);
     return setTimeout(function() {
       return browseButton.click();
     }, 500);

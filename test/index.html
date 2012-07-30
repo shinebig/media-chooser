@@ -9,10 +9,9 @@
 	$(function(){
 		var mediaChooser = Chute.MediaChooser;
 		Chute.setApp('4f69f42432fc7257d3000001');
-		mediaChooser.setChuteIdentifier(285406);
-		mediaChooser.setup({
-			selector: '#widget',
-			allow: 'videos'
+		mediaChooser.choose({
+			allow: 'videos',
+			identifier: 285406
 		}, function(urls, data){
 			alert(urls[0]);
 		});
@@ -20,6 +19,5 @@
 	</script>
 </head>
 <body>
-	<div id="widget"></div>
 </body>
 </html>
