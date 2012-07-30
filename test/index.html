@@ -13,6 +13,21 @@
 			identifier: 285406,
 			constraints: {
 				width: '>= 150 && <= 500'
+			},
+			on: {
+				complete: function(){ alert('complete'); },
+				templateLoaded: function(){ alert('templateLoaded'); },
+				dependenciesLoaded: function(){ alert('dependenciesLoaded'); },
+				assetsLoading: function(){ alert('assetsLoading'); },
+				assetsRendered: function(){ alert('assetsRendered'); },
+				assetsReRendered: function(){ alert('assetsReRendered'); },
+				drop: function(){ alert('drop'); },
+				albumList: function(){ alert('albumList'); },
+				albumLoad: function(){ alert('albumLoad'); },
+				add: function(){ alert('add'); },
+				remove: function(){ alert('remove'); },
+				selection: function(){ alert('selection'); },
+				profileComplete: function(){ alert('profileComplete'); }
 			}
 		}, function(urls, data){
 			alert(urls.join("\n"));

@@ -89,13 +89,9 @@ class window.Chute.MediaChooser
 			filteredData.assets = []
 			
 			for asset in data.assets
-				console.log constraintsLength
 				if constraintsLength > 0
 					valid = yes
 					for key of params.constraints
-						console.log key
-						console.log asset[key]
-						console.log params.constraints[key]
 						valid = no if params.constraints.hasOwnProperty(key) and not @validateNumber(asset[key], params.constraints[key])
 					
 					if valid
@@ -106,15 +102,19 @@ class window.Chute.MediaChooser
 					urls.push asset.url
 			
 			callback urls, filteredData if callback
-	
+		
+		if params.on
+			for eventName of params.on
+				if params.on.hasOwnProperty eventName
+					params['on' + String.fromCharCode(eventName.charCodeAt(0) - 32) + eventName[1..eventName.length]] = params.on[eventName]
+		
 		id = parseInt Math.random() * 1000
 		widget = jQuery "<div id=\"chute-#{ id }\"></div>"
 		widget.appendTo 'body'
 		params.widget_id = id
-		chute "#chute-#{ id }", params
-		browseButton = widget.find "a.chute-browseButton"
-		browseButton.hide() if params.popup is no and params.mode is 'collector'
-		
-		setTimeout ->
+		params.onComplete = ->
+			browseButton = widget.find 'a.chute-browseButton'
+			browseButton.hide() if params.popup is no and params.mode is 'collector'
 			browseButton.click()
-		, 500
+		
+		chute "#chute-#{ id }", params

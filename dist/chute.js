@@ -95,7 +95,7 @@ window.Chute.MediaChooser = (function() {
   };
 
   MediaChooser.choose = function(params, callback) {
-    var browseButton, constraintsLength, id, key, widget,
+    var constraintsLength, eventName, id, key, widget,
       _this = this;
     if ('function' === typeof params) {
       callback = params;
@@ -147,13 +147,9 @@ window.Chute.MediaChooser = (function() {
       _ref = data.assets;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         asset = _ref[_i];
-        console.log(constraintsLength);
         if (constraintsLength > 0) {
           valid = true;
           for (key in params.constraints) {
-            console.log(key);
-            console.log(asset[key]);
-            console.log(params.constraints[key]);
             if (params.constraints.hasOwnProperty(key) && !_this.validateNumber(asset[key], params.constraints[key])) {
               valid = false;
             }
@@ -171,18 +167,26 @@ window.Chute.MediaChooser = (function() {
         return callback(urls, filteredData);
       }
     };
+    if (params.on) {
+      for (eventName in params.on) {
+        if (params.on.hasOwnProperty(eventName)) {
+          params['on' + String.fromCharCode(eventName.charCodeAt(0) - 32) + eventName.slice(1, eventName.length + 1 || 9e9)] = params.on[eventName];
+        }
+      }
+    }
     id = parseInt(Math.random() * 1000);
     widget = jQuery("<div id=\"chute-" + id + "\"></div>");
     widget.appendTo('body');
     params.widget_id = id;
-    chute("#chute-" + id, params);
-    browseButton = widget.find("a.chute-browseButton");
-    if (params.popup === false && params.mode === 'collector') {
-      browseButton.hide();
-    }
-    return setTimeout(function() {
+    params.onComplete = function() {
+      var browseButton;
+      browseButton = widget.find('a.chute-browseButton');
+      if (params.popup === false && params.mode === 'collector') {
+        browseButton.hide();
+      }
       return browseButton.click();
-    }, 500);
+    };
+    return chute("#chute-" + id, params);
   };
 
   return MediaChooser;
@@ -416,7 +420,6 @@ var _chuteFunctions = function(){
       this.options = $.extend({}, this.defaults, _htmlOptions);
       this.options = $.extend({}, this.options, options);
       this.options.is_display = !(this.options.mode == 'collector' || this.options.mode == 'chooser');
-
       if (this.options.identifier == null && !this.options.disable_auto_identifier){
         this.options.identifier = document.location.href;
         this.options.id         = document.location.href;
@@ -464,7 +467,7 @@ var _chuteFunctions = function(){
         }
         me.renderData();
       }
-
+		me.options.onComplete();
       return me;
     },
 
@@ -478,7 +481,7 @@ var _chuteFunctions = function(){
           me.$element.addClass('chute-disabled').css('opacity', '0.5');
           return;
         }
-
+		
         me.options.onAssetsLoading(me.$element);
 
         var defaultUrl = me.options.imagesUrl;
