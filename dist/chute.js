@@ -94,6 +94,12 @@ window.Chute.MediaChooser = (function() {
     return true;
   };
 
+  MediaChooser.defaults = {};
+
+  MediaChooser.setDefaults = function(defaults) {
+    this.defaults = defaults != null ? defaults : {};
+  };
+
   MediaChooser.choose = function(params, callback) {
     var constraintsLength, eventName, id, key, widget,
       _this = this;
@@ -101,17 +107,17 @@ window.Chute.MediaChooser = (function() {
       callback = params;
       params = {};
     }
-    params.app = Chute.app;
-    params.chute_id = params.identifier;
+    params.app = Chute.app || params.app;
+    params.chute_id = params.identifier || this.defaults.identifier;
     params.identifier = "chute-identifier-" + params.chute_id;
     if (!(params.mode != null)) {
-      params.mode = 'collector';
+      params.mode = 'collector' || this.defaults.mode;
     }
     if (!(params.popup != null)) {
-      params.popup = false;
+      params.popup = false || this.defaults.popup;
     }
     params.file_types = (function() {
-      switch (params.mediaTypes) {
+      switch (params.mediaTypes || this.defaults.mediaTypes) {
         case 'images':
         case 'image':
         case 'picture':
@@ -123,10 +129,13 @@ window.Chute.MediaChooser = (function() {
         default:
           return 0;
       }
-    })();
-    params.file_limit = params.limit || 0;
+    }).call(this);
+    params.file_limit = params.limit || this.defaults.limit || 0;
     params.picker_version = "v2";
     constraintsLength = 0;
+    if (this.defaults.constraints && !params.constraints) {
+      params.constraints = this.defaults.constraints;
+    }
     if (params.constraints) {
       for (key in params.constraints) {
         if (params.constraints.hasOwnProperty(key)) {
@@ -167,6 +176,9 @@ window.Chute.MediaChooser = (function() {
         return callback(urls, filteredData);
       }
     };
+    if (this.defaults.on && !params.on) {
+      params.on = this.defaults.on;
+    }
     if (params.on) {
       for (eventName in params.on) {
         if (params.on.hasOwnProperty(eventName)) {
@@ -181,7 +193,7 @@ window.Chute.MediaChooser = (function() {
     params.onComplete = function() {
       var browseButton;
       browseButton = widget.find('a.chute-browseButton');
-      if (params.popup === false && params.mode === 'collector') {
+      if (!params.popup && params.mode === 'collector') {
         browseButton.hide();
       }
       return browseButton.click();

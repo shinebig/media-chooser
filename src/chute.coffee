@@ -58,24 +58,30 @@ class window.Chute.MediaChooser
 		
 		yes
 	
+	@defaults: {}
+	@setDefaults: (@defaults = {}) ->
+	
 	@choose: (params, callback) ->
 		if 'function' is typeof params
 			callback = params
 			params = {}
 
-		params.app = Chute.app
-		params.chute_id = params.identifier
+		params.app = Chute.app or params.app
+		params.chute_id = params.identifier or @defaults.identifier
 		params.identifier = "chute-identifier-#{ params.chute_id }"
-		params.mode = 'collector' if not params.mode?
-		params.popup = no if not params.popup?
-		params.file_types = switch params.mediaTypes
+		params.mode = ('collector' or @defaults.mode) if not params.mode?
+		params.popup = (no or @defaults.popup) if not params.popup?
+		params.file_types = switch (params.mediaTypes or @defaults.mediaTypes)
 			when 'images', 'image', 'picture', 'pictures' then 1
 			when 'video', 'videos' then 2
 			else 0
 
-		params.file_limit = params.limit or 0
+		params.file_limit = params.limit or @defaults.limit or 0
 		params.picker_version = "v2"
 		constraintsLength = 0
+		if @defaults.constraints and not params.constraints
+			params.constraints = @defaults.constraints
+		
 		if params.constraints
 			for key of params.constraints
 				constraintsLength++ if params.constraints.hasOwnProperty key
@@ -103,6 +109,9 @@ class window.Chute.MediaChooser
 			
 			callback urls, filteredData if callback
 		
+		if @defaults.on and not params.on
+			params.on = @defaults.on
+		
 		if params.on
 			for eventName of params.on
 				if params.on.hasOwnProperty eventName
@@ -114,7 +123,7 @@ class window.Chute.MediaChooser
 		params.widget_id = id
 		params.onComplete = ->
 			browseButton = widget.find 'a.chute-browseButton'
-			browseButton.hide() if params.popup is no and params.mode is 'collector'
+			browseButton.hide() if not params.popup and params.mode is 'collector'
 			browseButton.click()
 		
 		chute "#chute-#{ id }", params

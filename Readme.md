@@ -175,6 +175,17 @@ Assuming we're using our last snippet code for choosing pictures, **data** varia
 
 Where assets is an array of selected items.
 
+## Defaults
+
+You can set default properties for each MediaChooser using **setDefaults** method:
+
+```javascript
+Chute.MediaChooser.setDefaults({
+	identifier: 123455,
+	mediaTypes: 'all'
+});
+```
+
 ## Events
 
 You can also attach listeners to different events, that get emitted.
