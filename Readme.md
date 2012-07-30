@@ -77,7 +77,7 @@ Assuming we're using our last snippet code for choosing pictures, **data** varia
 
 ## Placing widget
 
-```
+```javascript
 Chute.MediaChooser.setup({
 	selector: '#place-for-widget', // div for a widget
 	allow: 'videos'
@@ -111,16 +111,16 @@ Chute.MediaChooser.choose(function(urls, data){
 	var url = urls[0];
 	
 	// resize to 500x300
-	url.fill(500, 300);
+	Chute.fill(500, 300, url);
 	
 	// should fit into 400x325
-	url.fit(400, 325);
+	Chute.fit(400, 325, url);
 	
 	// width should be 300
-	url.width(300);
+	Chute.width(300, url);
 	
 	// height should be 125
-	url.height(125);
+	Chute.height(125, url);
 });
 ```
 

@@ -1,18 +1,18 @@
-String::fill = (width, height) ->
-	if /media\.getchute\.com/.test(@) then "#{ @ }/#{ width }x#{ height }" else @
-
-String::fit = (width, height) ->
-	if /media\.getchute\.com/.test(@) then "#{ @ }/fit/#{ width }x#{ height }" else @
-
-String::width = (width) ->
-	if /media\.getchute\.com/.test(@) then "#{ @ }/w/#{ width }" else @
-
-String::height = (height) ->
-	if /media\.getchute\.com/.test(@) then "#{ @ }/h/#{ height }" else @
-
 if not window.Chute
 	class window.Chute
 		@setApp: (@app) ->
+		
+		@fill: (width, height, url) ->
+			"#{ url }/#{ width }x#{ height }"
+		
+		@fit: (width, height, url) ->
+			"#{ url }/fit/#{ width }x#{ height }"
+		
+		@width: (width, url) ->
+			"#{ url }/w/#{ width }"
+		
+		@height: (height, url) ->
+			"#{ url }/h/#{ height }"
 
 class window.Chute.MediaChooser
 	@setChuteIdentifier: (@identifier) ->
