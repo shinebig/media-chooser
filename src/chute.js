@@ -34,8 +34,65 @@ window.Chute.MediaChooser = (function() {
 
   function MediaChooser() {}
 
+  MediaChooser.validateNumber = function(value, rule) {
+    var max, maxEqual, min, minEqual, result;
+    min = -Infinity;
+    minEqual = false;
+    max = Infinity;
+    maxEqual = false;
+    result = />=\s?([0-9.]+)/.exec(rule);
+    if (result) {
+      min = parseFloat(result[1]);
+      minEqual = true;
+    }
+    result = />\s?([0-9.]+)/.exec(rule);
+    if (result) {
+      min = parseFloat(result[1]);
+      minEqual = false;
+    }
+    result = /<=\s?([0-9.]+)/.exec(rule);
+    if (result) {
+      max = parseFloat(result[1]);
+      maxEqual = true;
+    }
+    result = /<\s?([0-9.]+)/.exec(rule);
+    if (result) {
+      max = parseFloat(result[1]);
+      maxEqual = false;
+    }
+    result = /^\=\s?([0-9.]+)$/.exec(rule);
+    if (result) {
+      min = max = parseFloat(result[1]);
+      minEqual = maxEqual = true;
+    }
+    if (min !== -Infinity) {
+      if (minEqual) {
+        if (!(value >= min)) {
+          return false;
+        }
+      } else {
+        if (!(value > min)) {
+          return false;
+        }
+      }
+    }
+    if (max !== Infinity) {
+      if (maxEqual) {
+        if (!(value <= max)) {
+          return false;
+        }
+      } else {
+        if (!(value < max)) {
+          return false;
+        }
+      }
+    }
+    return true;
+  };
+
   MediaChooser.choose = function(params, callback) {
-    var browseButton, id, widget;
+    var browseButton, constraintsLength, id, key, widget,
+      _this = this;
     if ('function' === typeof params) {
       callback = params;
       params = {};
@@ -65,16 +122,49 @@ window.Chute.MediaChooser = (function() {
     })();
     params.file_limit = params.limit || 0;
     params.picker_version = "v2";
+    constraintsLength = 0;
+    if (params.constraints) {
+      for (key in params.constraints) {
+        if (params.constraints.hasOwnProperty(key)) {
+          constraintsLength++;
+        }
+      }
+    }
     params.onSelectionComplete = function(element, data) {
-      var asset, urls, _i, _len, _ref;
+      var asset, filteredData, urls, valid, _i, _len, _ref;
       urls = [];
+      filteredData = {};
+      for (key in data) {
+        if (data.hasOwnProperty(key)) {
+          filteredData[key] = data[key];
+        }
+      }
+      filteredData.assets = [];
       _ref = data.assets;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         asset = _ref[_i];
-        urls.push(asset.url);
+        console.log(constraintsLength);
+        if (constraintsLength > 0) {
+          valid = true;
+          for (key in params.constraints) {
+            console.log(key);
+            console.log(asset[key]);
+            console.log(params.constraints[key]);
+            if (params.constraints.hasOwnProperty(key) && !_this.validateNumber(asset[key], params.constraints[key])) {
+              valid = false;
+            }
+          }
+          if (valid) {
+            filteredData.assets.push(asset);
+            urls.push(asset.url);
+          }
+        } else {
+          filteredData.assets.push(asset);
+          urls.push(asset.url);
+        }
       }
       if (callback) {
-        return callback(urls, data);
+        return callback(urls, filteredData);
       }
     };
     id = parseInt(Math.random() * 1000);

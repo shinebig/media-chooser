@@ -75,22 +75,11 @@ Assuming we're using our last snippet code for choosing pictures, **data** varia
 
 # Usage
 
-## Placing widget
-
-```javascript
-Chute.MediaChooser.setup({
-	selector: '#place-for-widget', // div for a widget
-	allow: 'videos'
-}, function(urls, data){
-	
-});
-```
-
 ## Limits
 
 ```javascript
 Chute.MediaChooser.choose({
-	allow: 'videos' // allow selecting only videos, can be 'all', 'videos', 'images'
+	allow: 'images' // allow selecting only images, can be 'all' or 'images'
 }, function(urls, data){
 	
 });
@@ -102,6 +91,22 @@ Chute.MediaChooser.choose({
 	
 });
 ```
+
+## Constraints
+
+You can also set additional limits for each chosen asset. For example, let's allow only images with width less than 500, but more than 300:
+
+```javascript
+Chute.MediaChooser.choose({
+	allow: 'images',
+	constraints: {
+		width: '>= 300 && <= 500'
+	}
+}, function(urls, data){
+	
+});
+```
+
 
 ## Processing
 

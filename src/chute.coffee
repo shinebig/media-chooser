@@ -15,6 +15,49 @@ if not window.Chute
 			"#{ url }/h/#{ height }"
 
 class window.Chute.MediaChooser
+	@validateNumber: (value, rule) ->
+		min = -Infinity
+		minEqual = no
+		max = Infinity
+		maxEqual = no
+		
+		result = />=\s?([0-9.]+)/.exec rule
+		if result
+			min = parseFloat result[1]
+			minEqual = yes
+		
+		result = />\s?([0-9.]+)/.exec rule
+		if result
+			min = parseFloat result[1]
+			minEqual = no
+		
+		result = /<=\s?([0-9.]+)/.exec rule
+		if result
+			max = parseFloat result[1]
+			maxEqual = yes
+		
+		result = /<\s?([0-9.]+)/.exec rule
+		if result
+			max = parseFloat result[1]
+			maxEqual = no
+		
+		result = /^\=\s?([0-9.]+)$/.exec rule
+		if result
+			min = max = parseFloat result[1]
+			minEqual = maxEqual = yes
+		
+		if min != -Infinity
+			if minEqual
+				return no if not (value >= min)
+			else return no if not (value > min)
+		
+		if max != Infinity
+			if maxEqual
+				return no if not (value <= max)
+			else return no if not (value < max)
+		
+		yes
+	
 	@choose: (params, callback) ->
 		if 'function' is typeof params
 			callback = params
@@ -32,10 +75,37 @@ class window.Chute.MediaChooser
 
 		params.file_limit = params.limit or 0
 		params.picker_version = "v2"
-		params.onSelectionComplete = (element, data) ->
+		constraintsLength = 0
+		if params.constraints
+			for key of params.constraints
+				constraintsLength++ if params.constraints.hasOwnProperty key
+		
+		params.onSelectionComplete = (element, data) =>
 			urls = []
-			urls.push(asset.url) for asset in data.assets
-			callback urls, data if callback
+			filteredData = {}
+			for key of data
+				filteredData[key] = data[key] if data.hasOwnProperty key
+			
+			filteredData.assets = []
+			
+			for asset in data.assets
+				console.log constraintsLength
+				if constraintsLength > 0
+					valid = yes
+					for key of params.constraints
+						console.log key
+						console.log asset[key]
+						console.log params.constraints[key]
+						valid = no if params.constraints.hasOwnProperty(key) and not @validateNumber(asset[key], params.constraints[key])
+					
+					if valid
+						filteredData.assets.push asset
+						urls.push asset.url
+				else
+					filteredData.assets.push asset
+					urls.push asset.url
+			
+			callback urls, filteredData if callback
 	
 		id = parseInt Math.random() * 1000
 		widget = jQuery "<div id=\"chute-#{ id }\"></div>"
