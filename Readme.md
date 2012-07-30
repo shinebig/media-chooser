@@ -14,13 +14,12 @@ Configure it:
 
 ```javascript
 Chute.MediaChooser.setApp('your application id');
-Chute.MediaChooser.setChuteIdentifier('your chute identifier');
 ```
 
 And when you need to collect pictures:
 
 ```javascript
-Chute.MediaChooser.choose(function(urls, data){
+Chute.MediaChooser.choose({ identifier: 12345 }, function(urls, data){
 	alert(urls[0]); // alerting URL of first picked picture
 });
 ```
@@ -79,12 +78,14 @@ Assuming we're using our last snippet code for choosing pictures, **data** varia
 
 ```javascript
 Chute.MediaChooser.choose({
+	identifier: 12345,
 	allow: 'images' // allow selecting only images, can be 'all' or 'images'
 }, function(urls, data){
 	
 });
 
 Chute.MediaChooser.choose({
+	identifier: 12345,
 	allow: 'all',
 	limit: 5 // allow 5 assets max.
 }, function(urls, data){
@@ -98,6 +99,7 @@ You can also set additional limits for each chosen asset. For example, let's all
 
 ```javascript
 Chute.MediaChooser.choose({
+	identifier: 12345,
 	allow: 'images',
 	constraints: {
 		width: '>= 300 && <= 500'
@@ -111,7 +113,7 @@ Chute.MediaChooser.choose({
 ## Processing
 
 ```javascript
-Chute.MediaChooser.choose(function(urls, data){
+Chute.MediaChooser.choose({ identifier: 12345 }, function(urls, data){
 	// get first image's URL
 	var url = urls[0];
 	
@@ -126,6 +128,19 @@ Chute.MediaChooser.choose(function(urls, data){
 	
 	// height should be 125
 	Chute.height(125, url);
+});
+```
+
+## Customizing
+
+You can embed your own CSS into the widget by specifying **css** parameter:
+
+```javascript
+Chute.MediaChooser.choose({
+	css: 'http://my.website.com/chute.css',
+	identifier: 12345
+}, function(urls, data){
+	
 });
 ```
 
