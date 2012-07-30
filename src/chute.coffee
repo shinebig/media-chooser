@@ -10,19 +10,20 @@ String::width = (width) ->
 String::height = (height) ->
 	if /media\.getchute\.com/.test(@) then "#{ @ }/h/#{ height }" else @
 
-class window.Chute if not window.Chute
+if not window.Chute
+	class window.Chute
+		@setApp: (@app) ->
 
 class window.Chute.MediaChooser
-	@setApp: (@app) ->
 	@setChuteIdentifier: (@identifier) ->
 	
 	@setup: (params, callback) ->
 		if typeof params is 'string'
 			params = selector: params
 		
-		params.app = @app
-		#params.chute_id = params.identifier or @identifier
-		#params.identifier = "chute-identifier-#{ params.chute_id }"
+		params.app = Chute.app
+		params.chute_id = params.identifier or @identifier
+		params.identifier = "chute-identifier-#{ params.chute_id }"
 		params.mode = 'collector' if not params.mode?
 		params.popup = no if not params.popup?
 		params.file_types = switch params.allow

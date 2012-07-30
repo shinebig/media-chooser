@@ -37,6 +37,10 @@ if (!window.Chute) {
 
     function Chute() {}
 
+    Chute.setApp = function(app) {
+      this.app = app;
+    };
+
     return Chute;
 
   })();
@@ -45,10 +49,6 @@ if (!window.Chute) {
 window.Chute.MediaChooser = (function() {
 
   function MediaChooser() {}
-
-  MediaChooser.setApp = function(app) {
-    this.app = app;
-  };
 
   MediaChooser.setChuteIdentifier = function(identifier) {
     this.identifier = identifier;
@@ -61,7 +61,9 @@ window.Chute.MediaChooser = (function() {
         selector: params
       };
     }
-    params.app = this.app;
+    params.app = Chute.app;
+    params.chute_id = params.identifier || this.identifier;
+    params.identifier = "chute-identifier-" + params.chute_id;
     if (!(params.mode != null)) {
       params.mode = 'collector';
     }

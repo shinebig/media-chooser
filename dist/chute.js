@@ -1,4 +1,4 @@
-/*! Chute - v0.1.0 - 2012-07-29
+/*! Chute - v0.1.0 - 2012-07-30
 * http://getchute.com/
 * Copyright (c) 2012 Vadim Demedes; Licensed MIT */
 
@@ -41,6 +41,10 @@ if (!window.Chute) {
 
     function Chute() {}
 
+    Chute.setApp = function(app) {
+      this.app = app;
+    };
+
     return Chute;
 
   })();
@@ -49,10 +53,6 @@ if (!window.Chute) {
 window.Chute.MediaChooser = (function() {
 
   function MediaChooser() {}
-
-  MediaChooser.setApp = function(app) {
-    this.app = app;
-  };
 
   MediaChooser.setChuteIdentifier = function(identifier) {
     this.identifier = identifier;
@@ -65,7 +65,9 @@ window.Chute.MediaChooser = (function() {
         selector: params
       };
     }
-    params.app = this.app;
+    params.app = Chute.app;
+    params.chute_id = params.identifier || this.identifier;
+    params.identifier = "chute-identifier-" + params.chute_id;
     if (!(params.mode != null)) {
       params.mode = 'collector';
     }
