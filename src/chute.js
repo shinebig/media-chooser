@@ -97,13 +97,13 @@ window.Chute.MediaChooser = (function() {
   };
 
   MediaChooser.choose = function(params, callback) {
-    var constraintsLength, eventName, id, key, widget,
+    var constraintsLength, id, key, widget,
       _this = this;
     if ('function' === typeof params) {
       callback = params;
       params = {};
     }
-    params.app = Chute.app || params.app;
+    params.app = Chute.app || params.app || this.defaults.app;
     params.chute_id = params.identifier || this.defaults.identifier;
     params.identifier = "chute-identifier-" + params.chute_id;
     if (!(params.mode != null)) {
@@ -172,16 +172,6 @@ window.Chute.MediaChooser = (function() {
         return callback(urls, filteredData);
       }
     };
-    if (this.defaults.on && !params.on) {
-      params.on = this.defaults.on;
-    }
-    if (params.on) {
-      for (eventName in params.on) {
-        if (params.on.hasOwnProperty(eventName)) {
-          params['on' + String.fromCharCode(eventName.charCodeAt(0) - 32) + eventName.slice(1, eventName.length + 1 || 9e9)] = params.on[eventName];
-        }
-      }
-    }
     id = parseInt(Math.random() * 1000);
     widget = jQuery("<div id=\"chute-" + id + "\"></div>");
     widget.appendTo('body');

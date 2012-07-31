@@ -66,7 +66,7 @@ class window.Chute.MediaChooser
 			callback = params
 			params = {}
 
-		params.app = Chute.app or params.app
+		params.app = Chute.app or params.app or @defaults.app
 		params.chute_id = params.identifier or @defaults.identifier
 		params.identifier = "chute-identifier-#{ params.chute_id }"
 		params.mode = ('collector' or @defaults.mode) if not params.mode?
@@ -108,14 +108,6 @@ class window.Chute.MediaChooser
 					urls.push asset.url
 			
 			callback urls, filteredData if callback
-		
-		if @defaults.on and not params.on
-			params.on = @defaults.on
-		
-		if params.on
-			for eventName of params.on
-				if params.on.hasOwnProperty eventName
-					params['on' + String.fromCharCode(eventName.charCodeAt(0) - 32) + eventName[1..eventName.length]] = params.on[eventName]
 		
 		id = parseInt Math.random() * 1000
 		widget = jQuery "<div id=\"chute-#{ id }\"></div>"
