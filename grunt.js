@@ -5,11 +5,11 @@ module.exports = function(grunt) {
   grunt.initConfig({
     meta: {
       version: '0.1.0',
-      banner: '/*! Chute - v<%= meta.version %> - ' +
+      banner: '/*! Chute.MediaChooser - v<%= meta.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
         '* http://getchute.com/\n' +
         '* Copyright (c) <%= grunt.template.today("yyyy") %> ' +
-        'Vadim Demedes; Licensed MIT */'
+        'Chute Corporation; Licensed MIT */'
     },
     concat: {
       dist: {
