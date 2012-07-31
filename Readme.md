@@ -161,6 +161,8 @@ Assuming we're using our last snippet code for choosing pictures, **data** varia
 }
 ```
 
+Where assets is an array of selected items.
+
 ## MediaChooser HTML
 
 Here is the sample HTML of widget's body, so that you know where to apply your CSS rules:
@@ -199,7 +201,18 @@ Here is the sample HTML of widget's body, so that you know where to apply your C
 </div>
 ```
 
-Where assets is an array of selected items.
+## Parameters
+
+Here is the full list of parameters you can pass to **Chute.MediaChooser.choose** method:
+
+- app - application identifier, can be set per **choose** call or in global **Chute.setApp** method
+- constraints - collection of restrictions for assets
+- css - path to CSS file, which will be loaded in a widget
+- identifier - identifier of the chute
+- limit - limits the number of total files
+- mediaTypes - specifies type for selected files
+- popup - boolean, which enables to open widget in a separate window
+- scripts - comma-delimited paths to JS files, which will be loaded in a widget
 
 # License
 
