@@ -68,8 +68,8 @@ class window.Chute.MediaChooser
 
 		params.app = Chute.app or params.app or @defaults.app
 		params.chute_id = params.identifier or @defaults.identifier
-		if not params.chute_id
-			throw new Error 'Chute.MediaChooser requires identifier parameter'
+		if not params.chute_id or not params.app
+			throw new Error 'Chute.MediaChooser requires identifier and app parameters'
 		
 		params.identifier = "chute-identifier-#{ params.chute_id }"
 		params.mode = ('collector' or @defaults.mode) if not params.mode?

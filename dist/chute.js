@@ -109,8 +109,8 @@ window.Chute.MediaChooser = (function() {
     }
     params.app = Chute.app || params.app || this.defaults.app;
     params.chute_id = params.identifier || this.defaults.identifier;
-    if (!params.chute_id) {
-      throw new Error('Chute.MediaChooser requires identifier parameter');
+    if (!params.chute_id || !params.app) {
+      throw new Error('Chute.MediaChooser requires identifier and app parameters');
     }
     params.identifier = "chute-identifier-" + params.chute_id;
     if (!(params.mode != null)) {
