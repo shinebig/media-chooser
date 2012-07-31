@@ -205,7 +205,7 @@ Here is the sample HTML of widget's body, so that you know where to apply your C
 
 Here is the full list of parameters you can pass to **Chute.MediaChooser.choose** method:
 
-| Key | Description |
+| Key 			| Description 																					|
 |:--------------|:----------------------------------------------------------------------------------------------|
 | app			| application identifier, can be set per **choose** call or in global **Chute.setApp** method	|
 | constraints	| collection of restrictions for assets 														|
