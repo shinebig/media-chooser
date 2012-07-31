@@ -24,77 +24,7 @@ Chute.MediaChooser.choose({ identifier: 12345 }, function(urls, data){
 });
 ```
 
-# Customization
-
-## Selection limits
-
-You can allow certain types of files, limit their number and set dimensions, which fit you. Let's see how to do all that in one call:
-
-```javascript
-Chute.MediaChooser.choose({
-	identifier: 12345, // chute id, where uploaded files will go
-	limit: 5, // accept 5 files maximum
-	mediaTypes: 'images', // allow only images
-	constraints: {
-		width: '> 200 && < 500' // images with width bigger than 200 and less than 500 are allowed
-	}
-}, function(urls, data){
-	// that's it
-});
-```
-
-Those parameters don't have to be in the same call, you can mix and move them the way you want.
-
-## Appearance
-
-You can customize widget's appearance by embedding own CSS:
-
-```javascript
-Chute.MediaChooser.choose({
-	identifier: 12345,
-	css: 'http://website.com/path/to/stylesheet.css'
-}, function(urls, data){
-	
-});
-```
-
-Here is the sample HTML of widget's body, so that you know where to apply your CSS rules:
-
-```html
-<div class="chooser-container">
-	<!-- header of the widget -->
-	<div class="chooser-header"><div class="inner">
-		Photo Chooser
-		<a href="http://getchute.com/" target="_blank">Powered by Chute</a>
-	</div></div>
-	
-	<!-- Main area -->
-	<div class="chooser-main"><div class="inner">
-		<!-- Navigation -->
-		<div class="nav"><ul>
-			<li class="content"><a href="#">Upload</a></li>
-			<li class="facebook"><a href="#">Facebook</a></li>
-			<!-- Other services -->
-		</ul></div>
-		
-		<!-- Body -->
-		<div class="stage split-h">
-			<div class="content"></div>
-			<div class="facebook content"></div>
-			<!-- Other services -->
-		</div>
-		
-		<!-- Sidebar -->
-		<div class="meta">
-			<div class="meta-controls"></div>
-			<div class="meta-listing"></div>
-			<div class="status"></div>
-		</div>
-	</div></div>
-</div>
-```
-
-## Processing images
+# Handling Media
 
 Let's say user picked an image:
 
@@ -121,6 +51,64 @@ Chute.width(500, url); // => http://media.getchute.com/media/5aAxfa/w/500
 
 Chute.height(300, url); // => http://media.getchute.com/media/5aAxfa/h/300
 						// height of an image should equal 300px
+```
+
+# Customization
+
+## Setting defaults
+
+You can set default properties for each MediaChooser using **setDefaults** method:
+
+```javascript
+Chute.MediaChooser.setDefaults({
+	identifier: 123455,
+	mediaTypes: 'all'
+});
+```
+
+## Limiting total files
+
+```javascript
+Chute.MediaChooser.choose({
+	limit: 5 // allow 5 files maximum
+}, function(urls, data){
+	
+});
+```
+
+## Limiting file types
+
+```javascript
+Chute.MediaChooser.choose({
+	mediaTypes: 'images' // all|images
+}, function(urls, data){
+	
+});
+```
+
+## Restricting by image dimensions
+
+```javascript
+Chute.MediaChooser.choose({
+	constraints: {
+		width: '> 200 && < 500' // images with width bigger than 200 and less than 500 are allowed
+	}
+}, function(urls, data){
+	
+});
+```
+
+## Changing style
+
+You can customize widget's appearance by embedding own CSS:
+
+```javascript
+Chute.MediaChooser.choose({
+	identifier: 12345,
+	css: 'http://website.com/path/to/stylesheet.css'
+}, function(urls, data){
+	
+});
 ```
 
 # Reference
@@ -173,54 +161,45 @@ Assuming we're using our last snippet code for choosing pictures, **data** varia
 }
 ```
 
+## MediaChooser HTML
+
+Here is the sample HTML of widget's body, so that you know where to apply your CSS rules:
+
+```html
+<div class="chooser-container">
+	<!-- header of the widget -->
+	<div class="chooser-header"><div class="inner">
+		Photo Chooser
+		<a href="http://getchute.com/" target="_blank">Powered by Chute</a>
+	</div></div>
+	
+	<!-- Main area -->
+	<div class="chooser-main"><div class="inner">
+		<!-- Navigation -->
+		<div class="nav"><ul>
+			<li class="content"><a href="#">Upload</a></li>
+			<li class="facebook"><a href="#">Facebook</a></li>
+			<!-- Other services -->
+		</ul></div>
+		
+		<!-- Body -->
+		<div class="stage split-h">
+			<div class="content"></div>
+			<div class="facebook content"></div>
+			<!-- Other services -->
+		</div>
+		
+		<!-- Sidebar -->
+		<div class="meta">
+			<div class="meta-controls"></div>
+			<div class="meta-listing"></div>
+			<div class="status"></div>
+		</div>
+	</div></div>
+</div>
+```
+
 Where assets is an array of selected items.
-
-## Defaults
-
-You can set default properties for each MediaChooser using **setDefaults** method:
-
-```javascript
-Chute.MediaChooser.setDefaults({
-	identifier: 123455,
-	mediaTypes: 'all'
-});
-```
-
-## Events
-
-You can also attach listeners to different events, that get emitted.
-
-*Available events*:
-
-- templateLoaded - template loaded
-- dependenciesLoaded - dependencies loaded
-- assetsLoading - assets started loading
-- assetsRendered - assets rendered
-- assetsReRendered - assets rendered again
-- drop - assets drag & dropped
-- albumList - listing of albums loaded
-- albumLoad - external album loaded
-- add - asset got selected
-- remove - asset got removed from selection
-- selection - selection completed
-- profileComplete - profile completed
-
-You can specify listeners by filling **on** object:
-
-```javascript
-Chute.MediaChooser.choose({
-	identifier: 123455,
-	on: {
-		complete: function() {
-			
-		},
-		drop: function() {
-			
-		}
-		// etc
-	}
-})
-```
 
 # License
 
