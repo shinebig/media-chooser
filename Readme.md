@@ -1,6 +1,6 @@
 # Chute
 
-Chute's Media Chooser widget allows you to easily collect pictures from users. User can upload file from his computer or choose one from Facebook, Picasa, Instagram or Flickr.
+Chute's Media Chooser component allows you to easily collect media from your users. Your user can directly upload photos from their hard drive or choose from an existing album on Facebook, Flickr, Picasa, or Instagram.
 
 # Getting Started
 
@@ -14,54 +14,46 @@ Include **chute.min.js** into your page (*requires jQuery*):
 <script src="chute.min.js"></script>
 ```
 
-Configure it:
+Set your App ID:
 
 ```javascript
 Chute.MediaChooser.setApp('your application id');
 ```
 
-And when you need to collect pictures:
+To launch the Media Chooser:
 
 ```javascript
 Chute.MediaChooser.choose(function(urls, data){
-	alert(urls[0]); // alerting URL of first picked picture
+	alert(urls); // urls is an array of URL
+	alert(data); // data is an array of metadata about the media item
 });
 ```
 
-# Handling Media
+# Resizing Media
 
-Let's say user picked an image:
-
-```javascript
-Chute.MediaChooser.choose(function(urls, data){
-	// urls is an array of URLs of picked items
-});
-```
-
-Chute gives you ability to manipulate those images easily, using provided methods:
+Chute gives you the ability to resize images easily.  We offer several convenience methods:
 
 ```javascript
-var url = urls[0]; // got first selected image
-				   // http://media.getchute.com/media/5aAxfa, for example
+var url = 'http://media.getchute.com/media/5aAxfa' // sample url returned from the Media Chooser
 
+// Fill a 500x300 rectangle
 Chute.fill(500, 300, url); // => http://media.getchute.com/media/5aAxfa/500x300
-						   // will fill a 500x300 rectangle
 
+// Fit into 500x300 rectangle
 Chute.fit(500, 300, url); // => http://media.getchute.com/media/5aAxfa/fit/500x300
-						  // should fit into 500x300 rectangle
 
+// Max width of 500px
 Chute.width(500, url); // => http://media.getchute.com/media/5aAxfa/w/500
-					   // width of an image should be exactly 500px
 
+// Max height of 300px
 Chute.height(300, url); // => http://media.getchute.com/media/5aAxfa/h/300
-						// height of an image should equal 300px
 ```
 
 # Customization
 
 ## Setting defaults
 
-You can set default properties for each MediaChooser using **setDefaults** method:
+You can set default properties for the Media Chooser using the **setDefaults** method:
 
 ```javascript
 Chute.MediaChooser.setDefaults({
@@ -69,7 +61,7 @@ Chute.MediaChooser.setDefaults({
 });
 ```
 
-## Limiting total files
+## Limit total files
 
 ```javascript
 Chute.MediaChooser.choose({
@@ -79,17 +71,17 @@ Chute.MediaChooser.choose({
 });
 ```
 
-## Limiting file types
+## Limit by file types
 
 ```javascript
 Chute.MediaChooser.choose({
-	mediaTypes: 'images' // all|images
+	mediaTypes: 'images' // all | images (video coming soon!)
 }, function(urls, data){
 	
 });
 ```
 
-## Restricting by image dimensions
+## Restrict by image dimensions
 
 ```javascript
 Chute.MediaChooser.choose({
@@ -101,9 +93,9 @@ Chute.MediaChooser.choose({
 });
 ```
 
-## Changing style
+## Customize style
 
-You can customize widget's appearance by embedding own CSS:
+You can customize the Media Chooser's appearance by passing in your own CSS (see below for reference):
 
 ```javascript
 Chute.MediaChooser.choose({
@@ -121,7 +113,7 @@ Here is the full list of parameters you can pass to **Chute.MediaChooser.choose*
 
 | Key 			| Description 																					|
 |:--------------|:----------------------------------------------------------------------------------------------|
-| app			| application identifier, can be set per **choose** call or in global **Chute.setApp** method	|
+| app			| application identifier, can be set with **choose** call or globally with **Chute.setApp()**	|
 | constraints	| collection of restrictions for assets 														|
 | css			| path to CSS file, which will be loaded in a widget											|
 | album			| identifier of an album in Chute																|
@@ -132,20 +124,20 @@ Here is the full list of parameters you can pass to **Chute.MediaChooser.choose*
 
 ## Asset Data
 
-Assuming we're using our last snippet code for choosing pictures, **data** variable in a callback will be an object with something like this:
+After the Media Chooser closes, it returns both an array of urls and the data for those urls. Each Asset Object contains the following data:
 
 ```javascript
 {
 	"moderated": false,
 	"time": 1343204804.7934966,
-	"assets": [{
+	"assets": [{ // Array of data on selected assets
 		"id": 14006623,
 		"shortcut": "WLLhdwzi",
 		"status": "complete",
 		"url": "http://media.getchute.com/media/WLLhdwzi",
 		"thumb_url": "http://photos-e.ak.fbcdn.net/hphotos-ak-ash4/320430_3084192643214_466525836_s.jpg",
 		"is_portrait": true,
-		"name": null,
+		"name": null, // Caption (if provided)
 		"created_at": "2012-07-25T08:07:14Z",
 		"updated_at": "2012-07-25T08:07:14Z",
 		"height": 604,
@@ -153,10 +145,10 @@ Assuming we're using our last snippet code for choosing pictures, **data** varia
 		"md5": null,
 		"is_published": true,
 		"type": "image",
-		"source": "0",
-		"source_id": "3084192643214",
+		"source": "0", // 0 indicates upload
+		"source_id": "3084192643214", // id of the asset on original service
 		"source_url": "http://sphotos-a.xx.fbcdn.net/hphotos-ash4/320430_3084192643214_466525836_n.jpg",
-		"service": null,
+		"service": null, // contains service imported from
 		"import_id": null,
 		"import_url": null,
 		"original_url": "http://sphotos-a.xx.fbcdn.net/hphotos-ash4/320430_3084192643214_466525836_n.jpg",
@@ -164,31 +156,21 @@ Assuming we're using our last snippet code for choosing pictures, **data** varia
 			"id": 402971,
 			"name": "vdemedes",
 			"username": "vdemedes",
-			"avatar": "http://graph.facebook.com/1815826041/picture?type=square",
-			"profile": {
-				"FirstName": "",
-				"LastName": ""
-			},
-			"raw_profile": {
-				"First Name": "",
-				"Last Name": ""
-			}
+			"avatar": "http://graph.facebook.com/1815826041/picture?type=square"
 		}
 	}]
 }
 ```
 
-Where assets is an array of selected items.
+## Media Chooser HTML
 
-## MediaChooser HTML
-
-Here is the sample HTML of widget's body, so that you know where to apply your CSS rules:
+This is the basic HTML skeleton for the media chooser.  Feel free to apply your own CSS rules.
 
 ```html
 <div class="chooser-container">
 	<!-- header of the widget -->
 	<div class="chooser-header"><div class="inner">
-		Photo Chooser
+		Media Chooser
 		<a href="http://getchute.com/" target="_blank">Powered by Chute</a>
 	</div></div>
 	
