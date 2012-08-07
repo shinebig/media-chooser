@@ -104,11 +104,13 @@ window.Chute.MediaChooser = (function() {
       params = {};
     }
     params.app = Chute.app || params.app || this.defaults.app;
-    params.chute_id = params.identifier || this.defaults.identifier;
-    if (!params.chute_id || !params.app) {
-      throw new Error('Chute.MediaChooser requires identifier and app parameters');
+    params.chute_id = params.album || this.defaults.album;
+    if (!params.app) {
+      throw new Error('Chute.MediaChooser requires app parameter');
     }
-    params.identifier = "chute-identifier-" + params.chute_id;
+    if (params.chute_id) {
+      params.identifier = "chute-identifier-" + params.chute_id;
+    }
     if (!(params.mode != null)) {
       params.mode = 'collector' || this.defaults.mode;
     }

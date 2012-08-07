@@ -1,4 +1,4 @@
-/*! Chute.MediaChooser - v0.1.0 - 2012-07-31
+/*! Chute.MediaChooser - v0.1.1 - 2012-08-07
 * http://getchute.com/
 * Copyright (c) 2012 Chute Corporation; Licensed MIT */
 
@@ -108,11 +108,13 @@ window.Chute.MediaChooser = (function() {
       params = {};
     }
     params.app = Chute.app || params.app || this.defaults.app;
-    params.chute_id = params.identifier || this.defaults.identifier;
-    if (!params.chute_id || !params.app) {
-      throw new Error('Chute.MediaChooser requires identifier and app parameters');
+    params.chute_id = params.album || this.defaults.album;
+    if (!params.app) {
+      throw new Error('Chute.MediaChooser requires app parameter');
     }
-    params.identifier = "chute-identifier-" + params.chute_id;
+    if (params.chute_id) {
+      params.identifier = "chute-identifier-" + params.chute_id;
+    }
     if (!(params.mode != null)) {
       params.mode = 'collector' || this.defaults.mode;
     }
@@ -426,8 +428,8 @@ var _chuteFunctions = function(){
       this.options = $.extend({}, this.options, options);
       this.options.is_display = !(this.options.mode == 'collector' || this.options.mode == 'chooser');
       if (this.options.identifier == null && !this.options.disable_auto_identifier){
-        this.options.identifier = document.location.href;
-        this.options.id         = document.location.href;
+        this.options.identifier = '';
+        this.options.id         = '';
       }
 
       // use popup window when in an iframe hosted by us, or on a mobile

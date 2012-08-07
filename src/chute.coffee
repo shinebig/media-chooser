@@ -67,11 +67,11 @@ class window.Chute.MediaChooser
 			params = {}
 
 		params.app = Chute.app or params.app or @defaults.app
-		params.chute_id = params.identifier or @defaults.identifier
-		if not params.chute_id or not params.app
-			throw new Error 'Chute.MediaChooser requires identifier and app parameters'
+		params.chute_id = params.album or @defaults.album
+		if not params.app
+			throw new Error 'Chute.MediaChooser requires app parameter'
 		
-		params.identifier = "chute-identifier-#{ params.chute_id }"
+		params.identifier = "chute-identifier-#{ params.chute_id }" if params.chute_id
 		params.mode = ('collector' or @defaults.mode) if not params.mode?
 		params.popup = (no or @defaults.popup) if not params.popup?
 		params.file_types = switch (params.mediaTypes or @defaults.mediaTypes)
