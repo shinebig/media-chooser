@@ -19,7 +19,7 @@ Chute.MediaChooser.setApp('your application id');
 And when you need to collect pictures:
 
 ```javascript
-Chute.MediaChooser.choose({ identifier: 12345 }, function(urls, data){
+Chute.MediaChooser.choose(function(urls, data){
 	alert(urls[0]); // alerting URL of first picked picture
 });
 ```
@@ -29,7 +29,7 @@ Chute.MediaChooser.choose({ identifier: 12345 }, function(urls, data){
 Let's say user picked an image:
 
 ```javascript
-Chute.MediaChooser.choose({ identifier: 12345 }, function(urls, data){
+Chute.MediaChooser.choose(function(urls, data){
 	// urls is an array of URLs of picked items
 });
 ```
@@ -61,7 +61,6 @@ You can set default properties for each MediaChooser using **setDefaults** metho
 
 ```javascript
 Chute.MediaChooser.setDefaults({
-	identifier: 123455,
 	mediaTypes: 'all'
 });
 ```
@@ -104,7 +103,6 @@ You can customize widget's appearance by embedding own CSS:
 
 ```javascript
 Chute.MediaChooser.choose({
-	identifier: 12345,
 	css: 'http://website.com/path/to/stylesheet.css'
 }, function(urls, data){
 	
@@ -122,7 +120,7 @@ Here is the full list of parameters you can pass to **Chute.MediaChooser.choose*
 | app			| application identifier, can be set per **choose** call or in global **Chute.setApp** method	|
 | constraints	| collection of restrictions for assets 														|
 | css			| path to CSS file, which will be loaded in a widget											|
-| identifier	| identifier of the chute																		|
+| album			| identifier of an album in Chute																|
 | limit			| limits the number of total files																|
 | mediaTypes	| specifies type for selected files																|
 | popup			| boolean, which enables to open widget in a separate window									|
