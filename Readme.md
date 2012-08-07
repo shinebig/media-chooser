@@ -4,6 +4,10 @@ Chute's Media Chooser widget allows you to easily collect pictures from users. U
 
 # Getting Started
 
+Sign up for a free Chute account and generate a sample app:
+
+[http://auth.getchute.com/signup?authorization=502138493f59d84bb9000009](Chute Sign Up)
+
 Include **chute.min.js** into your page (*requires jQuery*):
 
 ```html
