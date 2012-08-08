@@ -178,6 +178,6 @@ div.code {
 	@include border-radius(2px);
 	
 	pre {
-		font-family: 'Consolas';
+		font-family: 'Consolas', monospace;
 	}
 }
