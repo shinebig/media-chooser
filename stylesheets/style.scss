@@ -143,7 +143,8 @@ ol {
 	
 	li, p {
 		&.done {
-			color:#aaa;
+			opacity:.1;
+			color:#aaa !important;
 		}
 	}
 }
