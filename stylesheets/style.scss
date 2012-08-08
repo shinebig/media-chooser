@@ -83,20 +83,10 @@ h1 {
 	color:#555;
 	margin-bottom:30px;
 	
-	sup {
-		font-size:12px;
-		vertical-align:super;
+	img {
+		margin-right:10px;
 		position:relative;
-		top:-5px;
-		left:10px;
-		
-		a {
-			border-bottom:0;
-			
-			&:active {
-				top:0 !important;
-			}
-		}
+		top:15px;
 	}
 }
 
