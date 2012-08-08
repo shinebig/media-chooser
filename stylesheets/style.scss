@@ -4,8 +4,6 @@
 @import "compass/css3/images";
 @import "compass/css3/font-face";
 
-@include font-face("Piron", font-files("http://chute.github.com/media-chooser/stylesheets/fonts/TFPironv2-stencil.otf"));
-
 div.container {
 	margin:40px 60px;
 	font-family: "Source Sans Pro", "Helvetica Neue", "Arial", sans-serif;
@@ -91,13 +89,6 @@ h1 {
 		position:relative;
 		top:-5px;
 		left:10px;
-		
-		a {
-			color:#44b6f8 !important;
-			border-bottom:0 !important;
-			font-family: "Piron" !important;
-			font-size:48px;
-		}
 	}
 }
 
