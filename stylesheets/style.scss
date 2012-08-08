@@ -4,7 +4,7 @@
 @import "compass/css3/images";
 @import "compass/css3/font-face";
 
-@include font-face("Piron", font-files("TFPironv2-stencil.otf"));
+@include font-face("Piron", font-files("http://chute.github.com/media-chooser/stylesheets/fonts/TFPironv2-stencil.otf"));
 
 div.container {
 	margin:40px 60px;
