@@ -2,6 +2,9 @@
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
 @import "compass/css3/images";
+@import "compass/css3/font-face";
+
+@include font-face("Piron", font-files("TFPironv2-stencil.otf"));
 
 div.container {
 	margin:40px 60px;
@@ -90,9 +93,10 @@ h1 {
 		left:10px;
 		
 		a {
-			color:#555 !important;
+			color:#44b6f8 !important;
 			border-bottom:0 !important;
-			font-weight:400;
+			font-family: "Piron" !important;
+			font-size:48px;
 		}
 	}
 }
