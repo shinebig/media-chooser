@@ -198,6 +198,14 @@ This is the basic HTML skeleton for the media chooser.  Feel free to apply your 
 </div>
 ```
 
+## Browser compatability
+
+- Safari 4+
+- Mozilla Firefox 3.5+
+- Opera 9+
+- Google Chrome
+- IE 8+
+
 # License
 
 &copy; Chute Corporation.
