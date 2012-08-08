@@ -1,4 +1,4 @@
-/*! Chute.MediaChooser - v0.1.1 - 2012-08-07
+/*! Chute.MediaChooser - v0.1.1 - 2012-08-08
 * http://getchute.com/
 * Copyright (c) 2012 Chute Corporation; Licensed MIT */
 

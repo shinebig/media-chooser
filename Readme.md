@@ -4,14 +4,12 @@ Chute's Media Chooser component allows you to easily collect media from your use
 
 # Getting Started
 
-Sign up for a free Chute account and generate a sample app:
+Go to [Media Chooser's homepage](http://chute.github.com/media-chooser) and sign up using a simple one-field form.
 
-[http://auth.getchute.com/signup?authorization=502138493f59d84bb9000009](Chute Sign Up)
-
-Include **chute.min.js** into your page (*requires jQuery*):
+Include **mediachooser.min.js** into your page (*requires jQuery*):
 
 ```html
-<script src="chute.min.js"></script>
+<script src="mediachooser.min.js"></script>
 ```
 
 Set your App ID:

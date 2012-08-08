@@ -13,18 +13,18 @@ module.exports = function(grunt) {
     },
     concat: {
       dist: {
-        src: ['<banner:meta.banner>', '<file_strip_banner:src/chute.js>', 'lib/chute.js'],
-        dest: 'dist/chute.js'
+        src: ['<banner:meta.banner>', '<file_strip_banner:src/mediachooser.js>', 'lib/chute.js'],
+        dest: 'dist/mediachooser.js'
       }
     },
     min: {
       dist: {
         src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-        dest: 'dist/chute.min.js'
+        dest: 'dist/mediachooser.min.js'
       }
     },
     watch: {
-      files: ['lib/chute.js', 'src/chute.js'],
+      files: ['lib/chute.js', 'src/mediachooser.js'],
       tasks: 'concat min'
     },
     uglify: {}
