@@ -1,1 +1,103 @@
-
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MediaChooser - collecting media from users finally made easy.</title>
+	<link href="http://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400" rel="stylesheet">
+	<link href="stylesheets/style.css" rel="stylesheet">
+</head>
+<body>
+	<div class="fade"></div>
+	<div class="demo">
+		<div class="image"></div>
+		<a href="#">Done</a>
+	</div>
+	<div class="container">
+		<h1>MediaChooser<sup>by <a href="http://getchute.com/" target="_blank">Chute</a></sup></h1>
+		
+		
+		<ul>
+			<li>Collect media from users with just a few lines of code.</li>
+			<li>Allow selecting from Facebook, Picasa, Flickr and Instagram.</li>
+			<li>Or let user upload media from his computer.</li>
+		</ul>
+		
+		
+		<h2><a href="#" class="get-started">Get started</a> <span>or</span> <a href="#" class="demo">take a demo.</a></h2>
+		
+		
+		<ol>
+			<li>Register for an account.</li>
+			<p>
+				<form action="http://ec2-23-20-40-94.compute-1.amazonaws.com:8888/register" method="post">
+					<div class="row">
+						<input type="text" name="email" placeholder="Enter your email">
+					</div>
+					<div class="row">
+						<input type="submit" value="Register"><span>We'll email your registration data.</span>
+					</div>
+				</form>
+			</p>
+			<li>Setup MediaChooser.</li>
+			<p>
+				Include it into your page first:
+				<div class="code">
+					<pre style="color:#586e75"><span style="color:#93a1a1">&lt;</span><span style="color:#268bd2;font-weight:700">script</span> <span style="color:#93a1a1">src</span>=<span style="color:#269186"><span style="color:#269186">"</span>http://cdn.getchute.com/media-chooser-0.1.1.min.js<span style="color:#269186">"</span></span><span style="color:#93a1a1">>&lt;/</span><span style="color:#268bd2;font-weight:700">script</span><span style="color:#93a1a1">></span></pre>
+				</div>
+				<b>Note:</b> jQuery is required.
+				<br>Then set your application identifier, which you received in an email:
+				<div class="code">
+					<pre style="color:#586e75">Chute.setApp<span style="color:#93a1a1">(</span><span style="color:#269186"><span style="color:#c60000">'</span>your identifier<span style="color:#c60000">'</span></span><span style="color:#93a1a1">)</span>;</pre>
+				</div>
+			</p>
+			<li>Start collecting media.</li>
+			<p>
+				<div class="code">
+					<pre style="color:#586e75">Chute.MediaChooser.choose<span style="color:#93a1a1">(</span><span style="color:#268bd2">function</span><span style="color:#93a1a1">(</span>urls, data<span style="color:#93a1a1">)</span><span style="color:#268bd2">{</span>
+	<span style="color:#93a1a1">// urls is an array of direct media URLs</span>
+	<span style="color:#93a1a1">// data array contains additional information about media, like dimensions</span>
+<span style="color:#268bd2">}</span><span style="color:#93a1a1">)</span>;</pre>
+				</div>
+			</p>
+		</ol>
+		
+		<h2>Check out <a href="https://github.com/chute/media-chooser">Github</a> repository for more documentation.</h2>
+		<h3>Got some questions? <a href="mailto:hello@getchute.com">Contact us!</a></h3>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="lib/chute.min.js"></script>
+	<script>
+	$(function(){
+		Chute.setApp('4f69f42432fc7257d3000001');
+		var emailField = $('input[type="text"]');
+		var demoBox = $('div.demo');
+		var doneButton = demoBox.find('a');
+		var imageBox = demoBox.find('div.image');
+		var fadeBox = $('div.fade');
+		
+		$('a.get-started').click(function(e){
+			e.preventDefault();
+			emailField.focus();
+		});
+		doneButton.click(function(e){
+			e.preventDefault();
+			demoBox.animate({ top: -460 }, 300);
+			fadeBox.animate({ opacity: 0 }, function(){
+				fadeBox.css('display', 'none');
+			});
+		});
+		
+		$('a.demo').click(function(e){
+			e.preventDefault();
+			
+			Chute.MediaChooser.choose(function(urls){
+				fadeBox.css('display', 'block').animate({ opacity: 1 });
+				imageBox.css('background', 'url("' + urls[0] + '")');
+				demoBox.animate({ top: 0 }, 500);
+			});
+		});
+	});
+	</script>
+</body>
+</html>
