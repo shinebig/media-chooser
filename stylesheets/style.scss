@@ -140,6 +140,12 @@ ol {
 		margin-top:10px;
 		font-size:14px;
 	}
+	
+	li, p {
+		&.done {
+			color:#aaa;
+		}
+	}
 }
 
 form {

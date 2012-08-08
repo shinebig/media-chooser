@@ -98,6 +98,11 @@
 				demoBox.animate({ top: 0 }, 500);
 			});
 		});
+		
+		if(/registered/.test(location.href)) {
+			$('ol li:first-child, ol p:first-child').addClass('done');
+			$('input').attr('disabled', 'disabled');
+		}
 	});
 	</script>
 </body>
