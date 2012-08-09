@@ -9,7 +9,7 @@ Go to [Media Chooser's homepage](http://chute.github.com/media-chooser) and sign
 Include **mediachooser.min.js** into your page (*requires jQuery*):
 
 ```html
-<script src="mediachooser.min.js"></script>
+<script src="http://cdn.getchute.com/media-chooser.min.js"></script>
 ```
 
 Set your App ID:
