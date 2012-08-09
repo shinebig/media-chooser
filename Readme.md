@@ -113,6 +113,16 @@ Chute.MediaChooser.choose({
 });
 ```
 
+## Embed chooser in an element
+
+```javascript
+Chute.MediaChooser.choose({
+	embed: '#place-for-chooser' // selector for a target element
+}, function(urls, data){
+	
+});
+```
+
 # Reference
 
 ## Parameters
@@ -121,10 +131,11 @@ Here is the full list of parameters you can pass to **Chute.MediaChooser.choose*
 
 | Key 			| Description 																					|
 |:--------------|:----------------------------------------------------------------------------------------------|
+| album			| identifier of an album in Chute																|
 | app			| application identifier, can be set with **choose** call or globally with **Chute.setApp()**	|
 | constraints	| collection of restrictions for assets 														|
 | css			| path to CSS file, which will be loaded in a widget											|
-| album			| identifier of an album in Chute																|
+| embed			| selector for an element, which will contain chooser											|
 | limit			| limits the number of total files																|
 | mediaTypes	| specifies type for selected files																|
 | popup			| boolean, which enables to open widget in a separate window									|
