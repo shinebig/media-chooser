@@ -6,7 +6,7 @@ Chute's Media Chooser component allows you to easily collect media from your use
 
 Go to [Media Chooser's homepage](http://chute.github.com/media-chooser) and sign up using a simple one-field form.
 
-Include **mediachooser.min.js** into your page (*requires jQuery*):
+Include **media-chooser.min.js** into your page (*requires jQuery*):
 
 ```html
 <script src="http://cdn.getchute.com/media-chooser.min.js"></script>
