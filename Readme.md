@@ -103,6 +103,16 @@ Chute.MediaChooser.choose({
 });
 ```
 
+## Allow only specified services
+
+```javascript
+Chute.MediaChooser.choose({
+	services: ['upload', 'facebook'] // specify array of services
+}, function(urls, data){
+	
+});
+```
+
 # Reference
 
 ## Parameters
@@ -119,6 +129,7 @@ Here is the full list of parameters you can pass to **Chute.MediaChooser.choose*
 | mediaTypes	| specifies type for selected files																|
 | popup			| boolean, which enables to open widget in a separate window									|
 | scripts		| comma-delimited paths to JS files, which will be loaded in a widget							|
+| services		| array of allowed services. upload, facebook, instagram, flickr or picasa can be specified.	|
 
 ## Asset Data
 
