@@ -78,6 +78,8 @@ class window.Chute.MediaChooser
 			when 'images', 'image', 'picture', 'pictures' then 1
 			when 'video', 'videos' then 2
 			else 0
+		
+		params.inclusions = (params.services or @defaults.services or ['upload', 'facebook', 'picasa', 'instagram', 'flickr']).join ','
 
 		params.file_limit = params.limit or @defaults.limit or 0
 		params.picker_version = "v2"

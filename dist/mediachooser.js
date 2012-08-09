@@ -1,4 +1,4 @@
-/*! Chute.MediaChooser - v0.1.1 - 2012-08-08
+/*! Chute.MediaChooser - v0.1.2 - 2012-08-09
 * http://getchute.com/
 * Copyright (c) 2012 Chute Corporation; Licensed MIT */
 
@@ -135,6 +135,7 @@ window.Chute.MediaChooser = (function() {
           return 0;
       }
     }).call(this);
+    params.inclusions = (params.services || this.defaults.services || ['upload', 'facebook', 'picasa', 'instagram', 'flickr']).join(',');
     params.file_limit = params.limit || this.defaults.limit || 0;
     params.picker_version = "v2";
     constraintsLength = 0;

@@ -131,6 +131,7 @@ window.Chute.MediaChooser = (function() {
           return 0;
       }
     }).call(this);
+    params.inclusions = (params.services || this.defaults.services || ['upload', 'facebook', 'picasa', 'instagram', 'flickr']).join(',');
     params.file_limit = params.limit || this.defaults.limit || 0;
     params.picker_version = "v2";
     constraintsLength = 0;
