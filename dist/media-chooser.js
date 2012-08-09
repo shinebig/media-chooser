@@ -1,4 +1,4 @@
-/*! Chute.MediaChooser - v0.1.2 - 2012-08-09
+/*! Chute.MediaChooser - v0.1.3 - 2012-08-10
 * http://getchute.com/
 * Copyright (c) 2012 Chute Corporation; Licensed MIT */
 
@@ -782,7 +782,13 @@ var _chuteFunctions = function(){
           var windowFeatures  = "width=" + width + ",height=" + height + ",status,resizable,scrollbars=0,left=" + left + ",top=" + top + "screenX=" + left + ",screenY=" + top;
 
           window.open(me.options.browsePath, "chute_browse_popup", windowFeatures);
-        } else {
+        } else if (me.options.embed) {
+			var element = jQuery(me.options.embed).append(me.$element.find('.chute-popup iframe').clone().attr('src', me.options.browsePath));
+			element.css({
+				width: 600,
+				height: 400
+			});
+		} else {
           me.$element.find(".chute-popup iframe").attr('src', me.options.browsePath);
           me.$element.find(".chute-popup").chuteReveal();
         }
