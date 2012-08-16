@@ -15,7 +15,7 @@ Include **media-chooser.min.js** into your page (*requires jQuery*):
 Set your App ID:
 
 ```javascript
-Chute.MediaChooser.setApp('your application id');
+Chute.setApp('your application id');
 ```
 
 To launch the Media Chooser:
