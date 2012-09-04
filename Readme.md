@@ -140,7 +140,8 @@ Here is the full list of parameters you can pass to **Chute.MediaChooser.choose*
 | mediaTypes	| specifies type for selected files																|
 | popup			| boolean, which enables to open widget in a separate window									|
 | scripts		| comma-delimited paths to JS files, which will be loaded in a widget							|
-| services		| array of allowed services. upload, facebook, instagram, flickr or picasa can be specified.	|
+| services		| array of allowed services. upload, facebook, instagram, flickr or picasa can be specified		|
+| version		| version of the file picker, can be 1 or 2														|
 
 ## Asset Data
 

@@ -82,10 +82,10 @@ class window.Chute.MediaChooser
 		params.inclusions = (params.services or @defaults.services or ['upload', 'facebook', 'picasa', 'instagram', 'flickr']).join ','
 
 		params.file_limit = params.limit or @defaults.limit or 0
-		params.picker_version = "v2"
-		# conditionally show v1 chooser for IE7
-		if $.browser.msie and $.browser.version.slice(0,2) == "7."
-			params.picker_version = "v1"
+		if params.version or @defaults.version
+			params.picker_version = "v#{ params.version or @defaults.version }"
+		else
+			params.picker_version = if jQuery.browser.msie and jQuery.browser.version.slice(0,2) is '7.' then 'v1' else 'v2'
 
 		constraintsLength = 0
 		if @defaults.constraints and not params.constraints
