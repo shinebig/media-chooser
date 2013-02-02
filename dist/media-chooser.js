@@ -1,4 +1,4 @@
-/*! Chute.MediaChooser - v0.1.4 - 2013-01-29
+/*! Chute.MediaChooser - v0.1.4 - 2013-02-01
 * http://getchute.com/
 * Copyright (c) 2013 Chute Corporation; Licensed MIT */
 
@@ -942,8 +942,8 @@ var _chuteFunctions = function(){
                                    "&title="           + encodeURIComponent(this.options.name) +
                                    "&url="             + encodeURIComponent(this.options.url) +
                                    "&tags="            + encodeURIComponent(this.options.tags) +
-                                   "&host="            + document.location.host +
-                                   "&page="            + document.location.href +
+                                   "&host="            + encodeURIComponent(document.location.host) +
+                                   "&page="            + encodeURIComponent(document.location.href) +
                                    "&screens="         + encodeURIComponent(this.options.screens) +
                                    "&css="             + encodeURIComponent(this.options.css) +
                                    "&scripts="         + encodeURIComponent(this.options.scripts) +
