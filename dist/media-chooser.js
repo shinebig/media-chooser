@@ -1,4 +1,4 @@
-/*! Chute.MediaChooser - v0.1.4 - 2013-02-01
+/*! Chute.MediaChooser - v0.1.4 - 2013-02-26
 * http://getchute.com/
 * Copyright (c) 2013 Chute Corporation; Licensed MIT */
 
@@ -389,6 +389,7 @@ var _chuteFunctions = function(){
         disable_auto_identifier : this.$element.attr('data-disable-auto-identifier') == undefined ? this.defaults.disable_auto_identifier : true,
         id                      : this.$element.attr('data-id') == undefined ? null : this.$element.attr('data-id'),
         bundle_id               : this.$element.attr('data-bundle-id') == undefined ? '' : this.$element.attr('data-bundle-id'),
+        custom_id               : this.$element.attr('data-custom_id') == undefined ? '' : this.$element.attr('data-custom_id'),
 
         assets                  : this.$element.attr('data-assets') == undefined ? this.defaults.assets : this.$element.attr('data-assets').split(','),
 
@@ -772,7 +773,7 @@ var _chuteFunctions = function(){
     makeDroppable: function(element) {
       var me = this;
 
-      me.$element.find('.chute-browseButton, .chute-dropBox').live('click', function(event){
+      me.$element.find('.chute-browseButton, .chute-dropBox').click(function(event){
         event.preventDefault();
         me.openChuteBrowser();
       });
@@ -939,6 +940,7 @@ var _chuteFunctions = function(){
                                    "?app_id="          + encodeURIComponent(this.options.app) +
                                    "&id="              + encodeURIComponent(this.options.id) +
                                    "&identifier="      + encodeURIComponent(this.options.identifier) +
+                                   "&custom_id="       + encodeURIComponent(this.options.custom_id) +
                                    "&title="           + encodeURIComponent(this.options.name) +
                                    "&url="             + encodeURIComponent(this.options.url) +
                                    "&tags="            + encodeURIComponent(this.options.tags) +
@@ -1123,21 +1125,10 @@ var _chuteFunctions = function(){
 
   $chuteWidget = 'chute';
 
-  if ($.browser.msie && parseInt($.browser.version) <= 7){
-    var last_hash = document.location.hash;
-    setInterval(function(){
-      var hash = document.location.hash;
-      if (hash !== last_hash) {
-        last_hash = hash;
-        receiveData(decodeURIComponent(hash).replace(/^#/, ''));
-      }
-    }, 1000 );
+  if (document.addEventListener){
+    window.addEventListener('message', receiveMessage, false);
   } else {
-    if (document.addEventListener){
-      window.addEventListener('message', receiveMessage, false);
-    } else {
-      window.attachEvent('onmessage', receiveMessage);
-    }
+    window.attachEvent('onmessage', receiveMessage);
   }
 
   function receiveMessage(event){
@@ -1797,16 +1788,6 @@ jQuery Reveal
   /*---------------------------
    Defaults for Reveal
   ----------------------------*/
-
-  /*---------------------------
-   Listener for data-reveal-id attributes
-  ----------------------------*/
-
-  $('a[data-chute-reveal-id]').live('click', function(e) {
-    e.preventDefault();
-    var modalLocation = $(this).attr('data-reveal-id');
-    $('#'+modalLocation).reveal($(this).data());
-  });
 
   /*---------------------------
    Extend and Execute
