@@ -194,7 +194,7 @@ window.Chute.MediaChooser = (function() {
       }
       return browseButton.click();
     };
-    return chute("#chute-" + id, params);
+    return __chute("#chute-" + id, params);
   };
 
   return MediaChooser;

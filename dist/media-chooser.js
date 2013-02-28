@@ -1,4 +1,4 @@
-/*! Chute.MediaChooser - v0.1.4 - 2013-02-26
+/*! Chute.MediaChooser - v0.1.4 - 2013-02-27
 * http://getchute.com/
 * Copyright (c) 2013 Chute Corporation; Licensed MIT */
 
@@ -198,7 +198,7 @@ window.Chute.MediaChooser = (function() {
       }
       return browseButton.click();
     };
-    return chute("#chute-" + id, params);
+    return __chute("#chute-" + id, params);
   };
 
   return MediaChooser;
@@ -242,9 +242,9 @@ function chuteGetScript(url, success) {
   head.appendChild(script);
 }
 
-var chute = function(element, data){
+var __chute = function(element, data){
   function _loader(element, data){
-    _chuteFunctions()
+    __chuteFunctions()
     jQuery(element).chute(data);
   }
 
@@ -281,7 +281,7 @@ var chute = function(element, data){
   }
 }
 
-var _chuteFunctions = function(){
+var __chuteFunctions = function(){
 
 (function($) {
   var CHUTE = {
@@ -1977,4 +1977,4 @@ EasyXDM
 
 
 
-chute('.chute-widget:not(.chute-loaded)');
+__chute('.chute-widget:not(.chute-loaded)');

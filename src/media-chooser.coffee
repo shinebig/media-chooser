@@ -127,4 +127,4 @@ class window.Chute.MediaChooser
 			browseButton.hide() if not params.popup and params.mode is 'collector'
 			browseButton.click()
 
-		chute "#chute-#{ id }", params
+		__chute "#chute-#{ id }", params
