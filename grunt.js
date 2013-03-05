@@ -1,5 +1,6 @@
 /*global module:false*/
 module.exports = function(grunt) {
+  grunt.loadNpmTasks('grunt-coffee');
 
   // Project configuration.
   grunt.initConfig({
@@ -10,6 +11,15 @@ module.exports = function(grunt) {
         '* http://getchute.com/\n' +
         '* Copyright (c) <%= grunt.template.today("yyyy") %> ' +
         'Chute Corporation; Licensed MIT */'
+    },
+    coffee: {
+      app: {
+        src: 'src/media-chooser.coffee',
+        dest: 'src',
+        options: {
+          bare: true
+        }
+      }
     },
     concat: {
       dist: {
@@ -24,13 +34,13 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['lib/chute.js', 'src/media-chooser.js'],
-      tasks: 'concat min'
+      files: ['lib/chute.js', 'src/media-chooser.coffee'],
+      tasks: 'coffee concat min'
     },
     uglify: {}
   });
 
   // Default task.
-  grunt.registerTask('default', 'concat min');
+  grunt.registerTask('default', 'coffee concat min');
 
 };
