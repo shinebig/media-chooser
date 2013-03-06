@@ -966,6 +966,7 @@ var __chuteFunctions = function(){
         scripts         : this.options.scripts,
         iframe          : this.options.iframe,
         iframe_position : this.options.iframe_position,
+        iframe_title    : this.options.iframe_title,
 
         captions        : this.options.captions,
         exclusions      : this.options.exclusions,
