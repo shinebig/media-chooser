@@ -135,7 +135,7 @@ window.Chute.MediaChooser = (function() {
     if (params.version || this.defaults.version) {
       params.picker_version = "v" + (params.version || this.defaults.version);
     } else {
-      params.picker_version = jQuery.browser.msie && jQuery.browser.version.slice(0, 2) === '7.' ? 'v1' : 'v2';
+      params.picker_version = 'v2';
     }
     constraintsLength = 0;
     if (this.defaults.constraints && !params.constraints) {

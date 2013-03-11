@@ -1,4 +1,4 @@
-/*! Chute.MediaChooser - v0.1.4 - 2013-03-05
+/*! Chute.MediaChooser - v0.1.4 - 2013-03-11
 * http://getchute.com/
 * Copyright (c) 2013 Chute Corporation; Licensed MIT */
 
@@ -139,7 +139,7 @@ window.Chute.MediaChooser = (function() {
     if (params.version || this.defaults.version) {
       params.picker_version = "v" + (params.version || this.defaults.version);
     } else {
-      params.picker_version = jQuery.browser.msie && jQuery.browser.version.slice(0, 2) === '7.' ? 'v1' : 'v2';
+      params.picker_version = 'v2';
     }
     constraintsLength = 0;
     if (this.defaults.constraints && !params.constraints) {

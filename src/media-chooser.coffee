@@ -85,7 +85,7 @@ class window.Chute.MediaChooser
 		if params.version or @defaults.version
 			params.picker_version = "v#{ params.version or @defaults.version }"
 		else
-			params.picker_version = if jQuery.browser.msie and jQuery.browser.version.slice(0,2) is '7.' then 'v1' else 'v2'
+			params.picker_version = 'v2'
 
 		constraintsLength = 0
 		if @defaults.constraints and not params.constraints
