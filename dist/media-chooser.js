@@ -1,4 +1,4 @@
-/*! Chute.MediaChooser - v0.1.4 - 2013-03-11
+/*! Chute.MediaChooser - v0.1.4 - 2013-03-12
 * http://getchute.com/
 * Copyright (c) 2013 Chute Corporation; Licensed MIT */
 
@@ -289,10 +289,7 @@ var __chuteFunctions = function(){
         <a class='close-chute-reveal-modal'>&#215;</a>\
       </div>\
       <div class='chute-thanks chute-reveal-modal'>\
-        <div class='chute-thanks-header'>\
-          <h3>Thanks!</h3>\
-          <p>Your photos will be online as soon as they're approved</p>\
-        </div>\
+        <div class='chute-thanks-header'>SUCCESS_MESSAGE</div>\
         <div class='chute-thanks-footer'>\
           <a href='mailto:info@getchute.com'>info@getchute.com</a>\
         </div>\
@@ -350,6 +347,7 @@ var __chuteFunctions = function(){
       file_limit               : 0,                                          // 0 = unlimited
 
       is_display              : true,
+      success_message         : "<h3>Thanks!</h3><p>Your photos will be online as soon as they're approved</p>",
 
       // Plugin Events
       onComplete              : function() {},                              // Fired when the the plugin has completely initialized
@@ -425,13 +423,16 @@ var __chuteFunctions = function(){
         share_text              : this.$element.attr('data-share-text') == undefined ? '' : this.$element.attr('data-share-text'),
         awesm_key               : this.$element.attr('data-awesm-key') == undefined ? '' : this.$element.attr('data-awesm-key'),
 
-        popup                   : this.$element.attr('data-popup') == 'popup'
+        popup                   : this.$element.attr('data-popup') == 'popup',
+        success_message         : this.$element.attr('data-success_message') == undefined ? this.defaults.success_message : this.$element.attr('data-success_message')
       }
 
       // Set the options
       this.options = $.extend({}, this.defaults, _htmlOptions);
       this.options = $.extend({}, this.options, options);
       this.options.is_display = !(this.options.mode == 'collector' || this.options.mode == 'chooser');
+      this.popupHtml = this.popupHtml.replace('SUCCESS_MESSAGE', this.options.success_message);
+
       if (this.options.identifier == null && !this.options.disable_auto_identifier){
         this.options.identifier = '';
         this.options.id         = '';
