@@ -1,4 +1,4 @@
-/*! Chute.MediaChooser - v0.1.4 - 2013-03-15
+/*! Chute.MediaChooser - v0.1.4 - 2013-03-27
 * http://getchute.com/
 * Copyright (c) 2013 Chute Corporation; Licensed MIT */
 
@@ -430,6 +430,7 @@ var __chuteFunctions = function(){
       // Set the options
       this.options = $.extend({}, this.defaults, _htmlOptions);
       this.options = $.extend({}, this.options, options);
+
       this.options.is_display = !(this.options.mode == 'collector' || this.options.mode == 'chooser');
       this.popupHtml = this.popupHtml.replace('SUCCESS_MESSAGE', this.options.success_message);
 
@@ -927,7 +928,7 @@ var __chuteFunctions = function(){
 
         for (var key in obj) {
           val = obj[key];
-          if (val && typeof val != 'undefined' && val.length > 0) {
+          if (val && typeof val != 'undefined' && (val.length > 0 || typeof val === 'number')) {
             params.push(key + "=" + encodeURIComponent(val));
           }
         }
@@ -974,7 +975,9 @@ var __chuteFunctions = function(){
         inclusions      : this.options.inclusions,
         dialog_title    : this.options.dialogTitle,
         popup           : this.options.popup.toString(),
-        picker_version  : this.options.picker_version
+        picker_version  : this.options.picker_version,
+
+        limit           : this.options.limit
       });
 
       this.options.imagesUrl = this.options.apiServer + '/widget/data?' + toURIParams({
