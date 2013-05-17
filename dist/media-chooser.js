@@ -1,4 +1,4 @@
-/*! Chute.MediaChooser - v0.1.4 - 2013-03-27
+/*! Chute.MediaChooser - v0.1.4 - 2013-05-17
 * http://getchute.com/
 * Copyright (c) 2013 Chute Corporation; Licensed MIT */
 
@@ -977,7 +977,8 @@ var __chuteFunctions = function(){
         popup           : this.options.popup.toString(),
         picker_version  : this.options.picker_version,
 
-        limit           : this.options.limit
+        limit           : this.options.limit,
+        config          : this.options.config
       });
 
       this.options.imagesUrl = this.options.apiServer + '/widget/data?' + toURIParams({
@@ -994,6 +995,9 @@ var __chuteFunctions = function(){
 
     uploadComplete: function(data){
       if (data.moderated && !this.options.popup){
+        if (data.success_message && typeof data.success_message === 'string' && data.success_message.length > 0) {
+          this.$element.find('.chute-thanks .chute-thanks-header').html(data.success_message);
+        }
         this.$element.find('.chute-thanks').chuteReveal();
       }
       this.options.onSelectionComplete(this.$element, data);
